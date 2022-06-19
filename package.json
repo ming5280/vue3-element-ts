@@ -23,6 +23,7 @@
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
+    "@vitejs/plugin-legacy": "^1.8.2",
     "@vitejs/plugin-vue": "^2.3.3",
     "consola": "^2.15.3",
     "eslint": "^8.17.0",
@@ -35,7 +36,9 @@
     "unplugin-auto-import": "^0.8.8",
     "unplugin-vue-components": "^0.19.6",
     "vite": "^2.9.9",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vue-global-api": "^0.4.1",
     "vue-tsc": "^0.34.7"
   }
 }

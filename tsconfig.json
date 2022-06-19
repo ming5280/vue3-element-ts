@@ -2,8 +2,8 @@
   "compilerOptions": {
     "typeRoots": [
       "node_modules/@types", // 默认值
-      "src/types"
-   ],
+      "types"
+    ],
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -14,11 +14,18 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
+    "skipLibCheck": true,
     "baseUrl": "./",
-    "paths":{
+    "paths": {
       "@": ["src"],
-      "@/*": ["src/*"],
+      "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/**/*.d.ts"
+  ]
 }

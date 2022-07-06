@@ -4,7 +4,7 @@ import request from '@/utils/http';
  * 登录
  */
 
-interface IResponseType<P = {}> {
+interface IResponseType<P> {
   code?: number;
   status: number;
   msg: string;

@@ -5,15 +5,23 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 import legacy from '@vitejs/plugin-legacy';
 import compressPlugin from 'vite-plugin-compression';
+import eslintPlugin from 'vite-plugin-eslint';
 
 export function createVitePlugins() {
   return [
     vue(),
 
+    // 在开发和构建时进行代码规范校验
+    eslintPlugin({
+      /* 配置选项 */
+      // 禁用 eslint 缓存
+      cache: false,
+    }),
+
     // 在script标签中写component name
     VueSetupExtend(),
 
-    // 自动导入api 以及 element 组件
+    // 自动导入api
     AutoImport({
       dts: 'types/auto-imports.d.ts', // 生成 `auto-imports.d.ts` 全局声明路径
       imports: ['vue', 'vue-router'],

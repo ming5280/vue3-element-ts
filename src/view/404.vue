@@ -7,8 +7,8 @@
       <h1>404</h1>
       <div class="desc">抱歉，你访问的页面不存在哦</div>
       <div class="actions">
-        <el-button type="primary" size="small" @click="backHome"
-          >返回首页</el-button
+        <el-button type="primary" @click="backHome"
+          >返回首页{{ count }}s</el-button
         >
       </div>
     </div>
@@ -19,6 +19,17 @@
 //获取路由器实例
 const router = useRouter();
 const backHome = () => router.push('/');
+const count = ref(0);
+const timer = ref(null);
+const start = () => {
+  timer.value = setInterval(() => {
+    if (count.value <= 0) {
+      timer.value = null;
+    } else {
+      count.value--;
+    }
+  }, 1000);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -51,7 +62,7 @@ const backHome = () => router.push('/');
     width: 100%;
     max-width: 430px;
     height: 360px;
-    background-image: url('~@/assets/images/404.svg');
+    background-image: url('@/assets/images/404.svg');
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: contain;

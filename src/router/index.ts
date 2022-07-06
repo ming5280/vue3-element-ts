@@ -51,6 +51,16 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('@/view/form.vue'),
   },
+  {
+    path: '/404',
+    name: 'NotFund',
+    meta: {
+      title: '404-找不到页面',
+      keepAlive: true,
+      requireAuth: true,
+    },
+    component: () => import('@/view/404.vue'),
+  },
 ];
 
 const router = createRouter({

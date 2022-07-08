@@ -9,11 +9,11 @@ import eslintPlugin from 'vite-plugin-eslint';
 
 export function createVitePlugins() {
   return [
+    // vue支持
     vue(),
 
     // 在开发和构建时进行代码规范校验
     eslintPlugin({
-      /* 配置选项 */
       // 禁用 eslint 缓存
       cache: false,
     }),
@@ -23,14 +23,14 @@ export function createVitePlugins() {
 
     // 自动导入api
     AutoImport({
-      dts: 'types/auto-imports.d.ts', // 生成 `auto-imports.d.ts` 全局声明路径
+      dts: 'src/auto-imports.d.ts', // 生成 `auto-imports.d.ts` 全局声明路径
       imports: ['vue', 'vue-router'],
       resolvers: [ElementPlusResolver()],
     }),
 
     // 自动注册element plus组件
     Components({
-      dts: 'types/components.d.ts', // 生成 `components.d.ts` 全局声明路径
+      dts: 'src/components.d.ts', // 生成 `components.d.ts` 全局声明路径
       dirs: ['src/components'], // 要导入组件的目录的路径
       deep: true, // 搜索子目录
       resolvers: [ElementPlusResolver()],
@@ -50,6 +50,7 @@ export function createVitePlugins() {
       algorithm: 'gzip', // 压缩算法 可选 ['gzip','brotliCompress' ,'deflate','deflateRaw']
       ext: '.gz', // 生成的压缩包后缀
     }),
+
     // 图片压缩
   ];
 }

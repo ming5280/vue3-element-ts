@@ -20,11 +20,11 @@
 const router = useRouter();
 const backHome = () => router.push('/');
 const count = ref(0);
-const timer = ref(null);
+const timer = ref<number>();
 const start = () => {
-  timer.value = setInterval(() => {
+  timer.value = window.setInterval(() => {
     if (count.value <= 0) {
-      timer.value = null;
+      timer.value = 0;
     } else {
       count.value--;
     }

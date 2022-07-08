@@ -20,7 +20,9 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
         '@': path.resolve(__dirname, 'src'),
       },
     },
+
     plugins: createVitePlugins(),
+
     server: {
       port: 8080, //启动端口
       hmr: {
@@ -36,5 +38,24 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
         },
       },
     },
+
+    // build
+    // build: {
+    //   target: 'es2015',
+    //   terserOptions: {
+    //     compress: {
+    //       keep_infinity: true,
+    //       drop_console: VITE_DROP_CONSOLE,
+    //     },
+    //   },
+    //   rollupOptions: {
+    //     output: {
+    //       manualChunks: configManualChunk,
+    //     },
+    //   },
+    //   // 关闭brotliSize显示屏可以稍微缩短打包时间
+    //   brotliSize: false,
+    //   chunkSizeWarningLimit: 2000,
+    // },
   };
 });

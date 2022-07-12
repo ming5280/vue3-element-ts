@@ -1,61 +1,91 @@
 import { defineConfig, ConfigEnv } from 'vite';
-import * as path from 'path';
-import { createVitePlugins } from './config';
+import { resolve } from 'path';
+import { createVitePlugins } from './config/vite/plugins';
+import proxy from './config/vite/proxy';
+import { VITE_DROP_CONSOLE, VITE_PORT } from './config/index';
+// import { generateModifyVars } from './config/themeConfig';
+import { configManualChunk } from './config/vite/optimizer';
+
+function pathResolve(dir: string) {
+  return resolve(process.cwd(), '.', dir);
+}
 
 export default defineConfig(({ command, mode }: ConfigEnv) => {
-  // if (command === 'serve') {
-  //   return {
-  //     // dev 独有配置
-  //   }
-  // } else {
-  //   // command === 'build'
-  //   return {
-  //     // build 独有配置
-  //   }
-  // }
+  const isBuild = command === 'build';
+  console.log(command, mode);
+
   return {
     resolve: {
-      //设置路径别名
-      alias: {
-        '@': path.resolve(__dirname, 'src'),
-      },
+      alias: [
+        // 设置路径别名
+        {
+          find: /^~/,
+          replacement: resolve(__dirname, ''),
+        },
+        // @/xxxx => src/xxxx
+        // {
+        //   find: '@',
+        //   replacement: resolve(__dirname, 'src'),
+        // },
+        // /@/xxxx => src/xxxx
+        {
+          find: /\/@\//,
+          replacement: pathResolve('src') + '/',
+        },
+        // /#/xxxx => types/xxxx
+        {
+          find: /\/#\//,
+          replacement: pathResolve('types') + '/',
+        },
+      ],
     },
 
-    plugins: createVitePlugins(),
+    // plugins
+    plugins: createVitePlugins(isBuild),
 
+    // css
+    // css: {
+    //   preprocessorOptions: {
+    //     less: {
+    //       modifyVars: generateModifyVars(),
+    //       javascriptEnabled: true,
+    //     },
+    //   },
+    // },
+
+    // server
     server: {
-      port: 8080, //启动端口
-      hmr: {
-        host: '127.0.0.1',
-        port: 8080,
-      },
-      // 设置 https 代理
-      proxy: {
-        '/api': {
-          target: 'your https address',
-          changeOrigin: true,
-          rewrite: (path: string) => path.replace(/^\/api/, ''),
-        },
-      },
+      hmr: { overlay: false }, // 禁用或配置 HMR 连接 设置 server.hmr.overlay 为 false 可以禁用服务器错误遮罩层
+      // 服务配置
+      port: VITE_PORT, // 类型： number 指定服务器端口;
+      open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
+      cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
+      host: '0.0.0.0', // IP配置，支持从IP启动
+      proxy,
     },
 
     // build
-    // build: {
-    //   target: 'es2015',
-    //   terserOptions: {
-    //     compress: {
-    //       keep_infinity: true,
-    //       drop_console: VITE_DROP_CONSOLE,
-    //     },
-    //   },
-    //   rollupOptions: {
-    //     output: {
-    //       manualChunks: configManualChunk,
-    //     },
-    //   },
-    //   // 关闭brotliSize显示屏可以稍微缩短打包时间
-    //   brotliSize: false,
-    //   chunkSizeWarningLimit: 2000,
+    build: {
+      target: 'es2015',
+      terserOptions: {
+        compress: {
+          keep_infinity: true,
+          drop_console: isBuild || VITE_DROP_CONSOLE,
+        },
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: configManualChunk,
+        },
+      },
+      // 关闭brotliSize显示屏可以稍微缩短包装时间
+      brotliSize: false,
+      chunkSizeWarningLimit: 2000,
+    },
+
+    // optimizeDeps
+    // optimizeDeps: {
+    //   include: ['ant-design-vue/es/locale/zh_CN', 'moment/dist/locale/zh-cn'],
     // },
   };
 });

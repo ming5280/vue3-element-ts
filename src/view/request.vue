@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts" name="RequestPage">
-import request from '@/utils/http';
-import API from '@/api';
+import request from '/@/utils/http';
+import API from '/@/api';
 
 const requestRes = async () => {
   let result = await request({

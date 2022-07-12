@@ -3,6 +3,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import store from './store';
 import router from './router';
+import '/@/styles/index.scss';
+// import { setupGlobDirectives } from './directives';
 // import installElementPlus from '@/plugins/element';
 
 // 创建vue实例
@@ -15,12 +17,16 @@ app.use(store);
 app.use(router);
 
 // 路由守卫控制
-// import './permission'
+// import './router/permission'
 
-// element plus 全局导入
+// element plus 手动导入
 // installElementPlus(app);
 
-// 字体图标 - 放在elemnt后面
+// Register UI components
+// setupComponents(app);
+
+// 全局属性
+// app.config.globalProperties.AuthEnum = AuthEnum;
 
 // 路由准备就绪后挂载APP实例
 router.isReady().then(() => app.mount('#app'));

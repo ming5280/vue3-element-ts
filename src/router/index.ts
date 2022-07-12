@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: false,
     },
-    component: () => import('@/view/login.vue'),
+    component: () => import('/@/view/login.vue'),
   },
   {
     path: '/',
@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('@/view/index.vue'),
+    component: () => import('/@/view/index.vue'),
   },
   {
     path: '/vueUse',
@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('@/view/vueUse.vue'),
+    component: () => import('/@/view/vueUse.vue'),
   },
   {
     path: '/request',
@@ -39,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('@/view/request.vue'),
+    component: () => import('/@/view/request.vue'),
   },
   {
     path: '/form',
@@ -49,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('@/view/form.vue'),
+    component: () => import('/@/view/form.vue'),
   },
   {
     path: '/404',
@@ -59,7 +59,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('@/view/404.vue'),
+    component: () => import('/@/view/404.vue'),
   },
 ];
 

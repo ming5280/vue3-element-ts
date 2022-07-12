@@ -1,56 +1,50 @@
+import type { Plugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import VueSetupExtend from 'vite-plugin-vue-setup-extend';
-import legacy from '@vitejs/plugin-legacy';
-import compressPlugin from 'vite-plugin-compression';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 import eslintPlugin from 'vite-plugin-eslint';
+import VueSetupExtend from 'vite-plugin-vue-setup-extend';
+import { configLegacyPlugin } from './legacy';
+// import { configStyleImportPlugin } from './styleImport';
+import { configSvgIconsPlugin } from './svgIcons';
+import { autoRegistryComponents } from './component';
+import { AutoImportDeps } from './autoImport';
+// import { configMockPlugin } from './mock';
+import { configVisualizerConfig } from './visualizer';
+import { configCompressPlugin } from './compress';
 
-export function createVitePlugins() {
-  return [
+export function createVitePlugins(isBuild: boolean) {
+  const vitePlugins: (Plugin | Plugin[])[] = [
     // vue支持
     vue(),
-
-    // 在开发和构建时进行代码规范校验
-    eslintPlugin({
-      // 禁用 eslint 缓存
-      cache: false,
-    }),
-
+    // JSX支持
+    vueJsx(),
+    // 在开发和构建时进行代码规范校验，禁用 eslint 缓存
+    eslintPlugin({ cache: false }),
     // 在script标签中写component name
     VueSetupExtend(),
-
-    // 自动导入api
-    AutoImport({
-      dts: 'src/auto-imports.d.ts', // 生成 `auto-imports.d.ts` 全局声明路径
-      imports: ['vue', 'vue-router'],
-      resolvers: [ElementPlusResolver()],
-    }),
-
-    // 自动注册element plus组件
-    Components({
-      dts: 'src/components.d.ts', // 生成 `components.d.ts` 全局声明路径
-      dirs: ['src/components'], // 要导入组件的目录的路径
-      deep: true, // 搜索子目录
-      resolvers: [ElementPlusResolver()],
-    }),
-
-    // 兼容ie 11
-    legacy({
-      targets: ['ie >= 11'],
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-    }),
-
-    // gzip 压缩
-    compressPlugin({
-      verbose: false, // 是否在控制台输出压缩结果
-      disable: false, // 是否禁用
-      threshold: 10240, // 文件容量大于这个值进行压缩，它将被压缩，单位为b
-      algorithm: 'gzip', // 压缩算法 可选 ['gzip','brotliCompress' ,'deflate','deflateRaw']
-      ext: '.gz', // 生成的压缩包后缀
-    }),
-
-    // 图片压缩
+    // 自动按需引入组件
+    autoRegistryComponents(),
+    // 自动按需引入依赖
+    AutoImportDeps(),
   ];
+
+  // @vitejs/plugin-legacy
+  isBuild && vitePlugins.push(configLegacyPlugin());
+
+  // rollup-plugin-gzip
+  isBuild && vitePlugins.push(configCompressPlugin());
+
+  // vite-plugin-svg-icons
+  vitePlugins.push(configSvgIconsPlugin(isBuild));
+
+  // vite-plugin-mock
+  // vitePlugins.push(configMockPlugin(isBuild));
+
+  // rollup-plugin-visualizer
+  vitePlugins.push(configVisualizerConfig());
+
+  // vite-plugin-style-import
+  // vitePlugins.push(configStyleImportPlugin(isBuild));
+
+  return vitePlugins;
 }

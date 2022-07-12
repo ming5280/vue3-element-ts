@@ -2,7 +2,7 @@ import { defineConfig, ConfigEnv } from 'vite';
 import { resolve } from 'path';
 import { createVitePlugins } from './config/vite/plugins';
 import proxy from './config/vite/proxy';
-import { VITE_DROP_CONSOLE, VITE_PORT } from './config/index';
+import { DROP_CONSOLE, VITE_PORT } from './config/index';
 // import { generateModifyVars } from './config/themeConfig';
 import { configManualChunk } from './config/vite/optimizer';
 
@@ -70,7 +70,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       terserOptions: {
         compress: {
           keep_infinity: true,
-          drop_console: isBuild || VITE_DROP_CONSOLE,
+          drop_console: DROP_CONSOLE,
         },
       },
       rollupOptions: {

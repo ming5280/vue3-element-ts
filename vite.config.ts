@@ -15,6 +15,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   console.log(command, mode);
 
   return {
+    envDir: resolve(__dirname, 'env'),
     resolve: {
       alias: [
         // 设置路径别名

@@ -19,11 +19,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="Activity count" prop="count">
-        <el-select-v2
-          v-model="ruleForm.count"
-          placeholder="Activity count"
-          :options="options"
-        />
+        <el-select-v2 v-model="ruleForm.count" placeholder="Activity count" :options="options" />
       </el-form-item>
       <el-form-item label="Activity time" required>
         <el-col :span="11">
@@ -72,9 +68,7 @@
         <el-input v-model="ruleForm.desc" type="textarea" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm(ruleFormRef)"
-          >Create</el-button
-        >
+        <el-button type="primary" @click="submitForm(ruleFormRef)">Create</el-button>
         <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
       </el-form-item>
     </el-form>

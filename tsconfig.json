@@ -35,6 +35,8 @@
     "src/**/*.vue",
     "types/**/*.d.ts",
     "types/**/*.ts",
+    "env/**/*.d.ts",
+    "env/**/*.ts",
     "config/**/*.ts",
     "config/**/*.d.ts",
     "mock/**/*.ts",

@@ -7,9 +7,7 @@
       <h1>404</h1>
       <div class="desc">抱歉，你访问的页面不存在哦</div>
       <div class="actions">
-        <el-button type="primary" @click="backHome"
-          >返回首页{{ count }}s</el-button
-        >
+        <el-button type="primary" @click="backHome">返回首页{{ count }}s</el-button>
       </div>
     </div>
   </div>

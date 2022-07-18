@@ -16,7 +16,7 @@ export const autoRegistryComponents = () => {
     // 解析自定义组件
     resolvers: [ElementPlusResolver()],
     // 生成 `components.d.ts` 全局声明路径
-    dts: 'src/components.d.ts',
+    dts: 'types/components.d.ts',
     // 允许子目录作为组件的命名空间前缀
     directoryAsNamespace: false,
     // 当directoryAsNamespace:true时生效，忽略命名空间前缀的子目录路径

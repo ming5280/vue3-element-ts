@@ -1,31 +1,19 @@
 /**
  * Generate proxy
  */
-
-import {
-  API_BASE_URL,
-  API_TARGET_URL,
-  MOCK_API_BASE_URL,
-  MOCK_API_TARGET_URL,
-} from '../../config/index';
 import { ProxyOptions } from 'vite';
 
 type ProxyTargetList = Record<string, ProxyOptions>;
 
-const ret: ProxyTargetList = {
-  // test
-  [API_BASE_URL]: {
-    target: API_TARGET_URL,
-    changeOrigin: true,
-    rewrite: (path) => path.replace(new RegExp(`^${API_BASE_URL}`), ''),
-  },
-  // mock
-  [MOCK_API_BASE_URL]: {
-    target: MOCK_API_TARGET_URL,
-    changeOrigin: true,
-    rewrite: (path) =>
-      path.replace(new RegExp(`^${MOCK_API_BASE_URL}`), '/api'),
-  },
-};
-
-export default ret;
+export function createProxy(VITE_API_PREFIX: string, VITE_BASE_API_URL: string): ProxyTargetList {
+  const ret: ProxyTargetList = {
+    // test
+    [VITE_API_PREFIX]: {
+      target: VITE_BASE_API_URL,
+      changeOrigin: true,
+      rewrite: (path) => path.replace(new RegExp(`^${VITE_API_PREFIX}`), ''),
+    },
+    // mock to do...
+  };
+  return ret;
+}

@@ -1,8 +1,8 @@
-import { defineConfig, ConfigEnv } from 'vite';
+import { defineConfig, ConfigEnv, loadEnv } from 'vite';
 import { resolve } from 'path';
 import { createVitePlugins } from './config/vite/plugins';
-import proxy from './config/vite/proxy';
-import { DROP_CONSOLE, VITE_PORT } from './config/index';
+import { createProxy } from './config/vite/proxy';
+import { transformEnv } from './config/utils';
 // import { generateModifyVars } from './config/themeConfig';
 import { configManualChunk } from './config/vite/optimizer';
 
@@ -11,8 +11,16 @@ function pathResolve(dir: string) {
 }
 
 export default defineConfig(({ command, mode }: ConfigEnv) => {
-  const isBuild = command === 'build';
   console.log(command, mode);
+
+  const isBuild = command === 'build';
+
+  const env = loadEnv(mode, process.cwd());
+
+  // loadEnv返回的是一个键与值都是string类型的对象，需要手动转换
+  const viteEnv = transformEnv(env);
+
+  const { VITE_PORT, VITE_DROP_CONSOLE, VITE_API_PREFIX, VITE_BASE_API_URL } = viteEnv;
 
   return {
     envDir: resolve(__dirname, 'env'),
@@ -42,7 +50,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     },
 
     // plugins
-    plugins: createVitePlugins(isBuild),
+    plugins: createVitePlugins(viteEnv, isBuild),
 
     // css
     // css: {
@@ -62,7 +70,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
       cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
       host: '0.0.0.0', // IP配置，支持从IP启动
-      proxy,
+      proxy: createProxy(VITE_API_PREFIX, VITE_BASE_API_URL),
     },
 
     // build
@@ -71,7 +79,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       terserOptions: {
         compress: {
           keep_infinity: true,
-          drop_console: DROP_CONSOLE,
+          drop_console: VITE_DROP_CONSOLE,
         },
       },
       rollupOptions: {

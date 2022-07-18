@@ -12,7 +12,8 @@ import { AutoImportDeps } from './autoImport';
 import { configVisualizerConfig } from './visualizer';
 import { configCompressPlugin } from './compress';
 
-export function createVitePlugins(isBuild: boolean) {
+export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
+  const { VITE_ANALYSIS, VITE_COMPRESSION } = viteEnv;
   const vitePlugins: (Plugin | Plugin[])[] = [
     // vue支持
     vue(),
@@ -32,7 +33,7 @@ export function createVitePlugins(isBuild: boolean) {
   isBuild && vitePlugins.push(configLegacyPlugin());
 
   // rollup-plugin-gzip
-  isBuild && vitePlugins.push(configCompressPlugin());
+  isBuild && vitePlugins.push(configCompressPlugin(VITE_COMPRESSION));
 
   // vite-plugin-svg-icons
   vitePlugins.push(configSvgIconsPlugin(isBuild));
@@ -41,7 +42,7 @@ export function createVitePlugins(isBuild: boolean) {
   // vitePlugins.push(configMockPlugin(isBuild));
 
   // rollup-plugin-visualizer
-  vitePlugins.push(configVisualizerConfig());
+  vitePlugins.push(configVisualizerConfig(VITE_ANALYSIS));
 
   // vite-plugin-style-import
   // vitePlugins.push(configStyleImportPlugin(isBuild));

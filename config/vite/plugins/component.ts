@@ -14,7 +14,11 @@ export const autoRegistryComponents = () => {
     // 搜索子目录
     deep: true,
     // 解析自定义组件
-    resolvers: [ElementPlusResolver()],
+    resolvers: [
+      ElementPlusResolver({
+        importStyle: 'sass',
+      }),
+    ],
     // 生成 `components.d.ts` 全局声明路径
     dts: 'types/components.d.ts',
     // 允许子目录作为组件的命名空间前缀

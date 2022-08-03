@@ -53,14 +53,17 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     plugins: createVitePlugins(viteEnv, isBuild),
 
     // css
-    // css: {
-    //   preprocessorOptions: {
-    //     less: {
-    //       modifyVars: generateModifyVars(),
-    //       javascriptEnabled: true,
-    //     },
-    //   },
-    // },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "/@/styles/index.scss" as *;`,
+        },
+        // less: {
+        //   modifyVars: generateModifyVars(),
+        //   javascriptEnabled: true,
+        // },
+      },
+    },
 
     // server
     server: {

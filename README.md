@@ -22,12 +22,14 @@ vue3 + vite + typescript + pinia 脚手架
 
 [prettier](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fprettier%2Fprettier)：^2.7.1
 
-
-
 ### 待完成
 
-1.安装git提交规范 以及 提交格式化内容
+1.安装 git 提交规范 以及 提交格式化内容
 
 [commitizen](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fcommitizen%2Fcz-cli)：^4.2.4
 
 [husky](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Ftypicode%2Fhusky)：^7.0.4
+
+### record
+
+git config --global http.sslVerify "false"

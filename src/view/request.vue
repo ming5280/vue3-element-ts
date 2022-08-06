@@ -1,8 +1,11 @@
 <template>
   <h2>这里是request请求页面</h2>
   <br />
+  <button @click="requestRes()">请求1</button>
+  <button @click="requestResAPI()">请求2</button>
+  <br />
+  <br />
   <router-link to="/">点击跳转至首页</router-link>
-  <button @click="requestRes()"></button>
 </template>
 
 <script setup lang="ts" name="RequestPage">

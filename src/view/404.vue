@@ -17,17 +17,6 @@
 //获取路由器实例
 const router = useRouter();
 const backHome = () => router.push('/');
-const count = ref(0);
-const timer = ref<number>();
-const start = () => {
-  timer.value = window.setInterval(() => {
-    if (count.value <= 0) {
-      timer.value = 0;
-    } else {
-      count.value--;
-    }
-  }, 1000);
-};
 </script>
 
 <style lang="scss" scoped>

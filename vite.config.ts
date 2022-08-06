@@ -20,7 +20,8 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   // loadEnv返回的是一个键与值都是string类型的对象，需要手动转换
   const viteEnv = transformEnv(env);
 
-  const { VITE_PORT, VITE_DROP_CONSOLE, VITE_API_PREFIX, VITE_BASE_API_URL } = viteEnv;
+  const { VITE_PORT, VITE_DROP_CONSOLE, VITE_API_PREFIX, VITE_BASE_API_URL, VITE_COMPRESSION } =
+    viteEnv;
 
   return {
     envDir: resolve(__dirname, 'env'),
@@ -87,7 +88,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       },
       rollupOptions: {
         output: {
-          manualChunks: configManualChunk,
+          manualChunks: isBuild ? configManualChunk : null,
         },
       },
       // 关闭brotliSize显示屏可以稍微缩短包装时间

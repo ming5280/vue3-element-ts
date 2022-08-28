@@ -1,8 +1,22 @@
 <template>
-  <RouterView />
+  <el-config-provider
+    :size="elementConfig.size"
+    :z-index="elementConfig.zIndex"
+    :locale="elementConfig.locale"
+  >
+    <RouterView />
+  </el-config-provider>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import zhCn from 'element-plus/lib/locale/lang/zh-cn';
+// import en from 'element-plus/lib/locale/lang/en';
+const elementConfig = reactive({
+  zIndex: 3000,
+  size: 'small',
+  locale: zhCn,
+});
+</script>
 
 <style>
 #app {

@@ -1,4 +1,5 @@
-import { defineConfig, ConfigEnv, loadEnv } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
+import type { UserConfig, ConfigEnv } from 'vite';
 import { resolve } from 'path';
 import { createVitePlugins } from './config/vite/plugins';
 import { createProxy } from './config/vite/proxy';
@@ -9,8 +10,8 @@ import { configManualChunk } from './config/vite/optimizer';
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
-
-export default defineConfig(({ command, mode }: ConfigEnv) => {
+// export default ({ command, mode }: ConfigEnv): UserConfig => {
+export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   console.log(command, mode);
 
   const isBuild = command === 'build';
@@ -20,8 +21,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   // loadEnv返回的是一个键与值都是string类型的对象，需要手动转换
   const viteEnv = transformEnv(env);
 
-  const { VITE_PORT, VITE_DROP_CONSOLE, VITE_API_PREFIX, VITE_BASE_API_URL, VITE_COMPRESSION } =
-    viteEnv;
+  const { VITE_PORT, VITE_DROP_CONSOLE, VITE_API_PREFIX, VITE_BASE_API_URL } = viteEnv;
 
   return {
     envDir: resolve(__dirname, 'env'),
@@ -56,8 +56,13 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     // css
     css: {
       preprocessorOptions: {
+        // 全局scss变量配置
         scss: {
-          additionalData: `@use "/@/styles/index.scss" as *;`,
+          additionalData: `
+              @use "/@/styles/var/element-theme.scss" as *;
+              @use "/@/styles/var/variables.scss" as *;
+              @use "/@/styles/var/mixin.scss" as *;
+            `,
         },
         // less: {
         //   modifyVars: generateModifyVars(),
@@ -88,7 +93,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       },
       rollupOptions: {
         output: {
-          manualChunks: isBuild ? configManualChunk : null,
+          manualChunks: isBuild ? configManualChunk : () => null,
         },
       },
       // 关闭brotliSize显示屏可以稍微缩短包装时间

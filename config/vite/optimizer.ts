@@ -6,7 +6,7 @@
 const vendorLibs: { match: string[]; output: string }[] = [
   {
     match: ['element-plus'],
-    output: 'antdv',
+    output: 'element',
   },
   {
     match: ['echarts'],

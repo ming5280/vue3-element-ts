@@ -6,9 +6,7 @@
 import type { Plugin } from 'vite';
 import compressPlugin from 'vite-plugin-compression';
 
-export function configCompressPlugin(
-  VITE_COMPRESSION: boolean,
-): Plugin | Plugin[] {
+export function configCompressPlugin(VITE_COMPRESSION: boolean): Plugin | Plugin[] {
   if (VITE_COMPRESSION) {
     return compressPlugin({
       ext: '.gz',

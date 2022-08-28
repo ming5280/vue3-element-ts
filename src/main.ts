@@ -1,11 +1,13 @@
-import 'vue-global-api';
-import { createApp } from 'vue';
+// import 'vue-global-api';
 import App from './App.vue';
+import { createApp } from 'vue';
 import store from './store';
 import router from './router';
-import '/@/styles/reset.scss';
+import setupComponents from '/@/plugins/element';
 // import { setupGlobDirectives } from './directives';
-// import installElementPlus from '@/plugins/element';
+
+import 'element-plus/dist/index.css';
+import '/@/styles/index.scss';
 
 // 创建vue实例
 const app = createApp(App);
@@ -19,11 +21,8 @@ app.use(router);
 // 路由守卫控制
 // import './router/permission'
 
-// element plus 手动导入
-// installElementPlus(app);
-
-// Register UI components
-// setupComponents(app);
+// Register ElementPlus UI components
+setupComponents(app);
 
 // 全局属性
 // app.config.globalProperties.AuthEnum = AuthEnum;

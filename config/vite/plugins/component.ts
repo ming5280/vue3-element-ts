@@ -2,7 +2,7 @@
  * @name autoRegistryComponents
  * @description 按需加载，自动引入组件
  */
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
 
 export const autoRegistryComponents = () => {
@@ -15,9 +15,9 @@ export const autoRegistryComponents = () => {
     deep: true,
     // 解析自定义组件
     resolvers: [
-      ElementPlusResolver({
-        importStyle: 'sass',
-      }),
+      // ElementPlusResolver({
+      //   importStyle: 'sass',
+      // }),
     ],
     // 生成 `components.d.ts` 全局声明路径
     dts: 'types/components.d.ts',

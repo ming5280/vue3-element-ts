@@ -1,4 +1,9 @@
 {
-  "editor.fontSize": 16,
-  "workbench.colorTheme": "One Monokai"
+  "workbench.colorTheme": "One Monokai",
+  "editor.fontFamily": "'Azeret Mono', 'JetBrains Mono',Consolas, 'Courier New', monospace",
+  "security.workspace.trust.untrustedFiles": "open",
+  "files.autoSave": "onWindowChange",
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // 设置默认格式化插件
+  "editor.formatOnSave": true, // 保存代码时自动格式化
+  "explorer.confirmDelete": false
 }

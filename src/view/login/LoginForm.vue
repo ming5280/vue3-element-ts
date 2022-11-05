@@ -43,6 +43,7 @@
     </el-form>
   </div>
 </template>
+
 <script setup lang="ts" name="LoginForm">
 const form = reactive({
   account: 'admin',
@@ -50,6 +51,7 @@ const form = reactive({
   rememberMe: false,
 });
 </script>
+
 <style lang="scss" scoped>
 .login-form {
   h2 {
@@ -58,16 +60,6 @@ const form = reactive({
     font-weight: 700;
     margin-bottom: 0.75rem;
   }
-  // :deep(.el-input__wrapper.is-focus) {
-  //   border: 1px solid #2a7dc9;
-  //   box-shadow: 0 0 0 2px #0960bd33 !important;
-  //   outline: 0;
-  // }
-
-  // :deep(.el-input__inner) {
-  //   font-size: 16px;
-  //   color: #000000;
-  // }
 
   :deep(.forgot-pwd .el-form-item__content) {
     justify-content: flex-end;

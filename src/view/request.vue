@@ -1,28 +1,27 @@
 <template>
-  <h2>这里是request请求页面</h2>
-  <br />
-  <button @click="requestRes()">请求1</button>
-  <button @click="requestResAPI()">请求2</button>
-  <br />
-  <br />
-  <router-link to="/">点击跳转至首页</router-link>
+  <div class="wrap">
+    <h2>这里是request请求页面</h2>
+    <el-button type="primary" @click="requestRes()">发送请求</el-button>
+    <br />
+    <router-link to="/">点击跳转至首页</router-link>
+  </div>
 </template>
 
 <script setup lang="ts" name="RequestPage">
-import request from '/@/utils/http';
-import API from '/@/api';
+import { getUserList } from '/@/api/demo/system';
 
 const requestRes = async () => {
-  let result = await request({
-    url: '/api/xxx',
-    method: 'get',
+  let result = await getUserList({
+    id: '1000010',
   });
 
   console.log(result);
 };
-
-const requestResAPI = async () => {
-  let result = await API.login('zhangsan', '123456');
-  console.log(result);
-};
 </script>
+<style lang="scss" scoped>
+.wrap {
+  margin: 30px auto;
+  width: 300px;
+  height: auto;
+}
+</style>

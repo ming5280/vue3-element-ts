@@ -124,7 +124,7 @@ export class VAxios {
     if (!Reflect.has(data, CODE) || !Reflect.has(data, MESSAGE) || !Reflect.has(data, RESULT)) {
       ElMessageBox.alert('请检查httpEnum设置返回结果字段名是否正确！', sys.api.successTip, {
         confirmButtonText: '关闭',
-        type: 'success',
+        type: 'error',
         showClose: false,
         closeOnClickModal: false,
       });
@@ -189,6 +189,7 @@ export class VAxios {
    */
   requestCatchHook(e: Error, options: RequestOptions) {
     // 最后请求失败做一些处理
+    console.log(e, options);
     return Promise<any>;
   }
 

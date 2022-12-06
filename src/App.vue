@@ -10,10 +10,9 @@
 
 <script setup lang="ts">
 import zhCn from 'element-plus/lib/locale/lang/zh-cn';
-// import en from 'element-plus/lib/locale/lang/en';
 const elementConfig = reactive({
   zIndex: 3000,
-  size: 'small',
+  size: 'default', // small
   locale: zhCn,
 });
 </script>

@@ -16,6 +16,7 @@ export function checkStatus(
     // 401: Not logged in
     case 401:
       // 如果没有登陆，在下面进行操作
+      errMessage = sys.api.errMsg401;
       break;
     case 403:
       errMessage = sys.api.errMsg403;
@@ -60,7 +61,7 @@ export function checkStatus(
         closeOnClickModal: false,
       });
     } else if (errorMessageMode === 'message') {
-      ElMessage.success(errMessage);
+      ElMessage.error(errMessage);
     }
   }
 }

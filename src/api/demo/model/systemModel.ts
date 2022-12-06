@@ -1,14 +1,21 @@
-export type MenuParams = {
-  menuName?: string;
-  status?: string;
+export type UserListParams = {
+  id: string;
 };
 
-export type MenuListGetResultModel = {
-  id: string;
-  orderNo: string;
-  createTime: string;
-  status: number;
-  icon: string;
-  component: string;
-  permission: string;
+export type UserListGetResultModel = {
+  list: UserInfo[];
 };
+
+export interface UserInfo {
+  id: string;
+  name: string;
+  age: Number;
+  address: string;
+  city: string;
+  province: string;
+  email: string;
+  phone: string;
+  regin: string;
+  url: string;
+  date: string;
+}

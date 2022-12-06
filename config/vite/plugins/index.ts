@@ -8,7 +8,7 @@ import { configLegacyPlugin } from './legacy';
 import { configSvgIconsPlugin } from './svgIcons';
 import { autoRegistryComponents } from './component';
 import { AutoImportDeps } from './autoImport';
-// import { configMockPlugin } from './mock';
+import { configMockPlugin } from './mock';
 import { configVisualizerConfig } from './visualizer';
 import { configCompressPlugin } from './compress';
 
@@ -39,7 +39,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   vitePlugins.push(configSvgIconsPlugin(isBuild));
 
   // vite-plugin-mock
-  // vitePlugins.push(configMockPlugin(isBuild));
+  vitePlugins.push(configMockPlugin(isBuild));
 
   // rollup-plugin-visualizer
   vitePlugins.push(configVisualizerConfig(VITE_ANALYSIS));

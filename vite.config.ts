@@ -10,7 +10,7 @@ import { configManualChunk } from './config/vite/optimizer';
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
-// export default ({ command, mode }: ConfigEnv): UserConfig => {
+// vite 配置
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   console.log(command, mode);
 
@@ -59,7 +59,6 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         // 全局scss变量配置
         scss: {
           additionalData: `
-              @use "/@/styles/var/element-theme.scss" as *;
               @use "/@/styles/var/variables.scss" as *;
               @use "/@/styles/var/mixin.scss" as *;
             `,

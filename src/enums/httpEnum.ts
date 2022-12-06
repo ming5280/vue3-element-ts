@@ -3,7 +3,7 @@
  */
 export enum ResultFieldEnum {
   CODE = 'code',
-  MESSAGE = 'info',
+  MESSAGE = 'message',
   RESULT = 'data',
 }
 
@@ -11,7 +11,7 @@ export enum ResultFieldEnum {
  * @description: 请求结果
  */
 export enum ResultEnum {
-  SUCCESS = 0,
+  SUCCESS = 200,
   ERROR = -1,
   TIMEOUT = 401,
   TYPE = 'success',

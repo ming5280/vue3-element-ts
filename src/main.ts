@@ -6,8 +6,8 @@ import router from './router';
 import setupComponents from '/@/plugins/element';
 // import { setupGlobDirectives } from './directives';
 
-// import 'element-plus/dist/index.css'; // vite css预解析已引入，避免造成css重复
 import '/@/styles/index.scss';
+import '/@/styles/var/element-theme.scss';
 
 // 创建vue实例
 const app = createApp(App);

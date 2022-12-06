@@ -179,8 +179,10 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
 
 <style lang="scss" scoped>
 .wrap {
-  margin: 50px auto;
-  width: 500px;
+  margin: 0px auto;
+  width: 1920px;
+  height: 1080px;
+  border: 1px solid red;
   .box {
   }
 }

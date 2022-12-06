@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "One Monokai",
+  "workbench.colorTheme": "Default Dark+",
   "editor.fontFamily": "'Azeret Mono', 'JetBrains Mono',Consolas, 'Courier New', monospace",
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "onWindowChange",

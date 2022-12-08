@@ -6,8 +6,29 @@ import { resultError, resultSuccess, requestParams } from '../_util';
 
 export default [
   {
+    url: '/api/login',
+    timeout: 500,
+    method: 'post',
+    response: (request: requestParams) => {
+      const { username, password } = request.body;
+      if (username !== 'admin' || password !== '123456') {
+        return resultError('请输入用户名和密码！');
+      }
+      return resultSuccess(
+        {
+          id: '10000001',
+          name: 'admin',
+          age: '25',
+        },
+        {
+          message: '登录成功！',
+        },
+      );
+    },
+  },
+  {
     url: '/api/getUserList',
-    timeout: 200,
+    timeout: 3000,
     method: 'get',
     response: (request: requestParams) => {
       const { id } = request.query;
@@ -33,50 +54,6 @@ export default [
           ],
         }),
       );
-      // return {
-      //   code: 200,
-      //   message: 'ok',
-      //   data: Mock.mock({
-      //     'list|4': [
-      //       {
-      //         id: '@id',
-      //         name: '@cname',
-      //         age: Random.integer(1, 100),
-      //         address: '@county',
-      //         city: '@city',
-      //         province: '@province',
-      //         email: Random.email(),
-      //         phone: /^1[0-9]{10}$/,
-      //         regin: '@region',
-      //         url: '@url',
-      //         date: Random.date('yyyy-MM-dd'),
-      //       },
-      //     ],
-      //   }),
-      // };
     },
   },
-  // {
-  //   url: '/api/login',
-  //   timeout: 200,
-  //   method: 'post',
-  //   response: ({ body }) => {
-  //     const { username, password } = body;
-  //     const checkUser = createFakeUserList().find(
-  //       (item) => item.username === username && password === item.password,
-  //     );
-  //     if (!checkUser) {
-  //       return resultError('Incorrect account or password！');
-  //     }
-  //     const { userId, username: _username, token, realName, desc, roles } = checkUser;
-  //     return resultSuccess({
-  //       roles,
-  //       userId,
-  //       username: _username,
-  //       token,
-  //       realName,
-  //       desc,
-  //     });
-  //   },
-  // },
 ] as MockMethod[];

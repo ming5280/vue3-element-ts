@@ -17,6 +17,14 @@ import { AxiosCanceler } from './axiosCancel';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { cloneDeep } from 'lodash-es';
 import sys from '../sysTips';
+import Loading from '../loading';
+
+const loading = new Loading({
+  lock: true,
+  text: '加载中...',
+  background: 'rgba(255,255,255,0.5)',
+  target: 'body',
+});
 
 /**
  * @description:  vaxios模块
@@ -37,7 +45,20 @@ export class VAxios {
    * @description: 请求之前处理config
    */
   beforeRequestHook(config, options) {
-    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
+    const {
+      apiUrl,
+      joinPrefix,
+      joinParamsToUrl,
+      formatDate,
+      joinTime = true,
+      urlPrefix,
+      isLoading,
+    } = options;
+
+    // 全局loading
+    if (isLoading) {
+      loading.show();
+    }
 
     // 判断是否加入前缀
     if (joinPrefix) {
@@ -101,7 +122,11 @@ export class VAxios {
    * @description: 处理响应数据。如果数据不是预期格式，可直接抛出错误
    */
   transformResponseHook(res: AxiosResponse<Result>, options: RequestOptions) {
-    const { isTransformResponse, isReturnNativeResponse } = options;
+    const { isTransformResponse, isReturnNativeResponse, isLoading } = options;
+    // 全局loading
+    if (isLoading) {
+      loading.hide();
+    }
 
     // 返回原生响应头
     if (isReturnNativeResponse) {
@@ -204,6 +229,7 @@ export class VAxios {
         ? `${options.authenticationScheme} ${token}`
         : token;
     }
+
     return config;
   }
 
@@ -211,7 +237,7 @@ export class VAxios {
    * @description: 响应拦截器处理
    */
   responseInterceptors(res: AxiosResponse<any>) {
-    // 响应拦截错误 进行一些处理
+    // 响应拦截 进行一些处理
     return res;
   }
 
@@ -257,7 +283,7 @@ export class VAxios {
             closeOnClickModal: false,
           });
         } else if (errorMessageMode === 'message') {
-          ElMessage.success(errMessage);
+          ElMessage.error(errMessage);
         }
         return Promise.reject(error);
       }

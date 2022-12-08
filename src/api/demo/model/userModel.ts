@@ -1,3 +1,14 @@
+export type LoginParams = {
+  username: string;
+  password: string;
+};
+
+export type LoginGetResultModel = {
+  id: string;
+  name: string;
+  age: string;
+};
+
 export type UserListParams = {
   id: string;
 };

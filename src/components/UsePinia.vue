@@ -14,3 +14,13 @@ import { useUserStore } from '/@/store/modules/user';
 
 const userStore = useUserStore();
 </script>
+<style lang="scss" scoped>
+h2 {
+  text-align: center;
+  font-size: 24px;
+}
+div {
+  text-align: center;
+  font-size: 20px;
+}
+</style>

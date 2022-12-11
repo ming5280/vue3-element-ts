@@ -4,7 +4,7 @@
 
     <el-form :model="form">
       <el-form-item prop="password">
-        <el-input size="large" v-model="form.account" placeholder="账号" autocomplete="off" />
+        <el-input size="large" v-model="form.username" placeholder="账号" autocomplete="off" />
       </el-form-item>
 
       <el-form-item prop="password">
@@ -34,7 +34,7 @@
       </el-row>
 
       <el-form-item prop="password">
-        <el-button type="primary" size="large" style="width: 100%; font-size: 16px"
+        <el-button @click="submmit" type="primary" size="large" style="width: 100%; font-size: 16px"
           >登 录</el-button
         >
       </el-form-item>
@@ -45,11 +45,17 @@
 </template>
 
 <script setup lang="ts" name="LoginForm">
+import { login } from '/@/api/demo/user';
 const form = reactive({
-  account: 'admin',
+  username: 'admin',
   password: '123456',
   rememberMe: false,
 });
+
+const submmit = async () => {
+  const { username, password } = form;
+  await login({ username, password });
+};
 </script>
 
 <style lang="scss" scoped>

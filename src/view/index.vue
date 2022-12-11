@@ -20,13 +20,15 @@
   width: 100%;
   height: 100%;
   img {
+    width: 200px;
+    height: 200px;
     margin: 0 auto;
   }
   a {
     display: block;
     text-align: center;
     text-decoration: underline;
-    color: $tiffany;
+    color: $light-blue;
   }
 }
 </style>

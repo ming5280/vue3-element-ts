@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts" name="RequestPage">
-import { getUserList, login } from '../api/demo/user';
+import { getUserList, login } from '/@/api/demo/user';
 
 const requestUserLsit = async () => {
   let result = await getUserList({

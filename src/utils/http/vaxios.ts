@@ -252,7 +252,7 @@ export class VAxios {
    * @description: 响应拦截错误处理
    */
   responseInterceptorsCatch(axiosInstance: AxiosInstance, error: any) {
-    // 发送错误日志
+    // 错误日志收集
     // const errorLogStore = useErrorLogStoreWithOut();
     // errorLogStore.addAjaxErrorInfo(error);
 

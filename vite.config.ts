@@ -7,16 +7,19 @@ import { transformEnv } from './config/utils';
 // import { generateModifyVars } from './config/themeConfig';
 import { configManualChunk } from './config/vite/optimizer';
 
+// __dirname: 被执行的 js 文件的绝对路径 - 文件所在目录
+// process.cwd(): 是当前执行node命令的目录 - 工作目录（当前Node.js进程执行时的工作目录）
+// resolve（） 返回拼接路径
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
 // vite 配置
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
-  console.log(command, mode);
+  console.log('>>>', command, mode);
 
   const isBuild = command === 'build';
 
-  const env = loadEnv(mode, process.cwd());
+  const env = loadEnv(mode, resolve(process.cwd(), 'env'), 'VITE_');
 
   // loadEnv返回的是一个键与值都是string类型的对象，需要手动转换
   const viteEnv = transformEnv(env);
@@ -24,7 +27,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   const { VITE_PORT, VITE_DROP_CONSOLE, VITE_API_PREFIX, VITE_BASE_API_URL } = viteEnv;
 
   return {
-    envDir: resolve(__dirname, 'env'),
+    envDir: resolve(__dirname, 'env'), // 加载evn文件目录
     resolve: {
       alias: [
         // 设置路径别名

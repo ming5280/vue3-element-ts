@@ -7,8 +7,8 @@ import {
 } from './model/userModel';
 
 enum Api {
-  Login = 'api/login',
-  GetUserList = '/api/getUserList',
+  Login = '/mock/api/login',
+  GetUserList = '/mock/api/getUserList',
 }
 
 /**

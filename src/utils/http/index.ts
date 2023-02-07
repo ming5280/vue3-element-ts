@@ -16,8 +16,8 @@ const defConfig = {
   // 配置项，下面的选项都可以在独立的接口请求中覆盖
   requestOptions: {
     // 请求url
-    apiUrl: '',
-    // 请求加入的前缀路径
+    apiUrl: import.meta.env.VITE_BASE_API_URL,
+    // 请求加入的前缀路径 import.meta.env.VITE_API_PREFIX
     urlPrefix: '',
     // psot 请求将参数拼接到url
     joinParamsToUrl: false,

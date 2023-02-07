@@ -212,9 +212,16 @@ export class VAxios {
   /**
    * @description: 请求失败处理
    */
-  requestCatchHook(e: Error, options: RequestOptions) {
-    // 最后请求失败做一些处理
-    console.log(e, options);
+  requestCatchHook(e: Error, conf: CreateAxiosOptions, opt: RequestOptions) {
+    // 关闭全局loading
+    if (opt.isLoading) {
+      loading.hide();
+    }
+
+    console.log('error:', e);
+    console.log('conf:', conf);
+    console.log('opt:', opt);
+
     return Promise<any>;
   }
 
@@ -418,7 +425,7 @@ export class VAxios {
         .catch((e: Error | AxiosError) => {
           // 报错处理
           if (requestCatchHook && isFunction(requestCatchHook)) {
-            reject(requestCatchHook(e, opt));
+            reject(requestCatchHook(e, conf, opt));
             return;
           }
 

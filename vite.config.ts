@@ -17,8 +17,6 @@ function pathResolve(dir: string) {
 
 // vite 配置
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
-  console.log('>>>', command, mode);
-
   const isBuild = command === 'build';
 
   const env = loadEnv(mode, resolve(process.cwd(), 'env'), 'VITE_');
@@ -116,14 +114,14 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         },
         // 静态资源分类打包
         output: {
-          // chunkFileNames: 'assets/js/[name]-[hash].js',
-          // entryFileNames: 'assets/js/[name]-[hash].js',
-          // assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+          chunkFileNames: 'assets/js/[name]-[hash].js',
+          entryFileNames: 'assets/js/[name]-[hash].js',
+          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
           manualChunks: isBuild ? configManualChunk : () => null,
         },
       },
-      // 关闭brotliSize显示屏可以稍微缩短包装时间
-      brotliSize: false,
+      // 关闭reportCompressedSize显示屏可以稍微缩短包装时间
+      reportCompressedSize: false,
       // 消除打包大小超过500kb警告
       assetsInlineLimit: 4096,
       // chunk 大小警告的限制

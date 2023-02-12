@@ -27,6 +27,7 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-**/src/auto-imports.d.ts
-**/src/components.d.ts
+# .d.ts
+# **/types/auto-imports.d.ts
+# **/types/components.d.ts
 

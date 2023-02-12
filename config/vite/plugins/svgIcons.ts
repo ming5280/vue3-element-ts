@@ -8,7 +8,7 @@ import path from 'path';
 
 export function configSvgIconsPlugin(isBuild: boolean) {
   const svgIconsPlugin = createSvgIconsPlugin({
-    iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+    iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')],
     svgoOptions: isBuild,
     // default
     symbolId: 'icon-[dir]-[name]',

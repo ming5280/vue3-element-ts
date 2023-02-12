@@ -6,7 +6,7 @@ import { resultError, resultSuccess, requestParams } from '../_util';
 
 export default [
   {
-    url: '/api/login',
+    url: '/mock/api/login',
     timeout: 500,
     method: 'post',
     response: (request: requestParams) => {
@@ -27,7 +27,7 @@ export default [
     },
   },
   {
-    url: '/api/getUserList',
+    url: '/mock/api/getUserList',
     timeout: 3000,
     method: 'get',
     response: (request: requestParams) => {

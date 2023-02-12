@@ -17,8 +17,8 @@ const defConfig = {
   requestOptions: {
     // 请求url
     apiUrl: import.meta.env.VITE_BASE_API_URL,
-    // 请求加入的前缀路径 import.meta.env.VITE_API_PREFIX
-    urlPrefix: '',
+    // 请求加入的前缀路径
+    urlPrefix: import.meta.env.VITE_API_PREFIX,
     // psot 请求将参数拼接到url
     joinParamsToUrl: false,
     // 格式化请求参数的时间

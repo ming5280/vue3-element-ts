@@ -13,7 +13,7 @@ import { configVisualizerConfig } from './visualizer';
 import { configCompressPlugin } from './compress';
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
-  const { VITE_ANALYSIS, VITE_COMPRESSION } = viteEnv;
+  const { VITE_ANALYSIS, VITE_COMPRESSION, VITE_LEGACY } = viteEnv;
   const vitePlugins: (Plugin | Plugin[])[] = [
     // vue支持
     vue(),
@@ -30,7 +30,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   ];
 
   // @vitejs/plugin-legacy
-  isBuild && vitePlugins.push(configLegacyPlugin());
+  VITE_LEGACY && isBuild && vitePlugins.push(configLegacyPlugin());
 
   // rollup-plugin-gzip
   isBuild && vitePlugins.push(configCompressPlugin(VITE_COMPRESSION));

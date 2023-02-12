@@ -1,5 +1,5 @@
 import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer';
-import userMock from 'mock/demo/user';
+import userMock from './demo/user';
 
 // 自动注册
 // const modules = import.meta.globEager('./**/*.ts');

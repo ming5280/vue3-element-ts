@@ -3,22 +3,28 @@
  */
 import { ProxyOptions } from 'vite';
 
+type ProxyItem = [string, string, string];
+
+type ProxyList = ProxyItem[];
+
 type ProxyTargetList = Record<string, ProxyOptions>;
+
 const httpsRE = /^https:\/\//;
 
-export function createProxy(VITE_API_PREFIX: string, VITE_BASE_API_URL: string): ProxyTargetList {
-  const isHttps = httpsRE.test(VITE_BASE_API_URL);
-  const ret: ProxyTargetList = {
-    // PREFIX
-    [VITE_API_PREFIX]: {
-      target: VITE_BASE_API_URL,
-      changeOrigin: true,
-      rewrite: (path) => path.replace(new RegExp(`^${VITE_API_PREFIX}`), ''),
-      ...(isHttps ? { secure: false } : {}),
-    },
+export function createProxy(list: ProxyList = []) {
+  const ret: ProxyTargetList = {};
+  for (const [prefix, toPrefix, target] of list) {
+    const isHttps = httpsRE.test(target);
 
-    // other to do...
-  };
+    ret[prefix] = {
+      target: target,
+      changeOrigin: true,
+      ws: true,
+      rewrite: (path) => path.replace(new RegExp(`^${prefix}`), toPrefix),
+      // https设置为 false
+      ...(isHttps ? { secure: false } : {}),
+    };
+  }
   console.log(ret);
   return ret;
 }

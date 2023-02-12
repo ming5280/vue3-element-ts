@@ -33,3 +33,5 @@ vue3 + vite + typescript + pinia 脚手架
 ### record
 
 git config --global http.sslVerify "false"
+
+打包资源分类，css 中引入的背景图片会路径 404

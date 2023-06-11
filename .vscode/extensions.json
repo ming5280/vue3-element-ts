@@ -1,3 +1,15 @@
 {
-  "recommendations": ["Vue.volar"]
+  "recommendations": [
+    "Vue.volar",
+    "formulahendry.auto-close-tag",
+    "steoates.autoimport",
+    "formulahendry.auto-rename-tag",
+    "ms-ceintl.vscode-language-pack-zh-hans",
+    "dbaeumer.vscode-eslint",
+    "redjue.git-commit-plugin",
+    "eamodio.gitlens",
+    "ecmel.vscode-html-css",
+    "xabikos.javascriptsnippets",
+    "esbenp.prettier-vscode"
+  ]
 }

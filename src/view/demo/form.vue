@@ -85,6 +85,15 @@
       placeholder: 'Activity form',
       span: 24,
     },
+    {
+      type: 'customer',
+      label: 'test',
+      field: 'test',
+      customRender: () => {
+        return <span>1111</span>;
+      },
+      span: 24,
+    },
   ]);
   const model = reactive({
     name: 'Hello',

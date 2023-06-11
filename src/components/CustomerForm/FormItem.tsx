@@ -8,6 +8,7 @@ import {
   createDatePickerRender,
   createRadioRender,
   createCheckboxRender,
+  createCustomerRender,
 } from './FormItemRender';
 
 const componentMap = new Map<string, any>();
@@ -19,6 +20,7 @@ componentMap.set('select', createSelectRender);
 componentMap.set('date', createDatePickerRender);
 componentMap.set('radio', createRadioRender);
 componentMap.set('checkbox', createCheckboxRender);
+componentMap.set('customer', createCustomerRender);
 
 const props = {
   formItem: {

@@ -11,7 +11,8 @@ type FormItemType =
   | 'checkbox'
   | 'daterange'
   | 'fileUpload'
-  | 'imageUpload';
+  | 'imageUpload'
+  | 'customer';
 
 type InputType = 'text' | 'textarea' | 'password';
 
@@ -44,6 +45,8 @@ export interface FormItemProps {
   dateType?: string; // year | month | date | dates | datetime | week | datetimerange | daterange | monthrange
   format?: string;
   valueFormat?: string;
+  slotName?: string;
+  customRender?: Function;
   // labelWidth?: string | number;
 }
 

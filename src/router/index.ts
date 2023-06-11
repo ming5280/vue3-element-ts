@@ -39,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('/@/view/request.vue'),
+    component: () => import('/@/view/form.vue'),
   },
   {
     path: '/form',
@@ -49,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('/@/view/form.vue'),
+    component: () => import('/@/view/demo/form.vue'),
   },
   {
     path: '/404',

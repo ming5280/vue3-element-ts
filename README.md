@@ -35,3 +35,7 @@ vue3 + vite + typescript + pinia 脚手架
 git config --global http.sslVerify "false"
 
 windicss 安装
+
+1.customerForm 的封装，打破了单项数据流问题 to do 2.自定义 formItem 通过 slot 集成到 customerForm
+3.formItem 的事件触发钩子
+4.fileUpload imageUpload 集成

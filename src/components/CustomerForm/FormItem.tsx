@@ -8,7 +8,7 @@ import {
   createDatePickerRender,
   createRadioRender,
   createCheckboxRender,
-  createCustomerRender,
+  // createCustomerRender,
 } from './FormItemRender';
 
 const componentMap = new Map<string, any>();
@@ -20,7 +20,7 @@ componentMap.set('select', createSelectRender);
 componentMap.set('date', createDatePickerRender);
 componentMap.set('radio', createRadioRender);
 componentMap.set('checkbox', createCheckboxRender);
-componentMap.set('customer', createCustomerRender);
+// componentMap.set('customer', createCustomerRender);
 
 const props = {
   formItem: {
@@ -40,7 +40,6 @@ export default defineComponent({
   props,
   setup(props) {
     // console.log(props.formItem, props.model);
-
     return () =>
       props.editable
         ? componentMap.get('default')(props.formItem, props.model)

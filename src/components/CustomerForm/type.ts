@@ -46,7 +46,6 @@ export interface FormItemProps {
   format?: string;
   valueFormat?: string;
   slotName?: string;
-  customRender?: Function;
   // labelWidth?: string | number;
 }
 

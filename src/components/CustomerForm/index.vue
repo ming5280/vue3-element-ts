@@ -55,7 +55,13 @@
       <template v-for="item in props.form" :key="item.field">
         <el-col :span="item.span ?? 8">
           <el-form-item :label="item.label" :prop="item.field" :rules="item.rules ?? []">
-            <FormItem :formItem="item" :model="props.model" :editable="props.editable" />
+            <!-- 这里应该可以在FromItem组件里面 用jsx处理插槽，尝试没成功，后续改进 to do -->
+            <template v-if="item.type === 'customer'">
+              <slot :name="item.slotName" :text="props.model[item.field]" :option="item"></slot>
+            </template>
+            <template v-else>
+              <FormItem :formItem="item" :model="props.model" :editable="props.editable" />
+            </template>
           </el-form-item>
         </el-col>
       </template>

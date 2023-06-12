@@ -87,11 +87,9 @@
     },
     {
       type: 'customer',
-      label: 'test',
+      slotName: 'test',
+      label: '插槽',
       field: 'test',
-      customRender: () => {
-        return <span>1111</span>;
-      },
       span: 24,
     },
   ]);
@@ -103,6 +101,7 @@
     resource: '',
     type: [],
     desc: '',
+    test: '1111',
   });
 
   const formRef = ref();
@@ -121,6 +120,9 @@
 <template>
   <div class="wrap">
     <CustomerForm ref="formRef" :model="model" :form="data">
+      <template #test="{ text }">
+        <span>{{ text }}</span>
+      </template>
       <template #action>
         <el-button type="primary" @click="submitForm()">Create</el-button>
         <el-button @click="resetForm()">Reset</el-button>

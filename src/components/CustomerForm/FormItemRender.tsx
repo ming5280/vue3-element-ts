@@ -150,6 +150,7 @@ export const createCheckboxRender = (formItem: FormItemProps, model: object): an
 /**
  * @description: 创建自定义渲染内容
  */
-export const createCustomerRender = (formItem: FormItemProps, model: object): any => {
-  return formItem.customRender && formItem.customRender(formItem, model);
-};
+// export const createCustomerRender = (formItem: FormItemProps, model: object): any => {
+//   // return formItem.customRender && formItem.customRender(formItem, model);
+//   return <>{this.$slots.header?.()}</>;
+// };

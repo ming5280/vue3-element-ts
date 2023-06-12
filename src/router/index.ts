@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import Layout from '/@/layout/index.vue';
+import Index from '/@/view/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -61,6 +63,22 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('/@/view/404.vue'),
   },
+
+  // 动态路由
+  // {
+  //   // path: '/',
+  //   name: 'dynamicRouter',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [
+  //     {
+  //       path: 'dashboard',
+  //       component: Index,
+  //       name: 'Dashboard',
+  //       meta: { title: '首页', keepAlive: true, requireAuth: true },
+  //     },
+  //   ],
+  // },
 ];
 
 const router = createRouter({

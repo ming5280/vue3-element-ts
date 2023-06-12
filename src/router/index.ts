@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import Layout from '/@/layout/index.vue';
-import Index from '/@/view/index.vue';
+// import Layout from '/@/layout/index.vue';
+// import Index from '/@/view/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -87,3 +87,19 @@ const router = createRouter({
   routes,
 });
 export default router;
+
+// export function generateRouter(userRouters) {
+//   let newRouters;
+//   newRouters = userRouters.map((r) => {
+//     let routes = {
+//       path: r.path,
+//       name: r.name,
+//       component: () => import(`../view/${r.name}.vue`),
+//     };
+//     if (r.children) {
+//       routes.children = generateRouter(r.children);
+//     }
+//     return routes;
+//   });
+//   return newRouters;
+// }

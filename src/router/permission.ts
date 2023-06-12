@@ -46,3 +46,39 @@
 //     }
 //   }
 // });
+
+// import router from './index.js';
+// import { filterAsyncRouter } from './getAsyncRouter.js';
+
+// // 导航守卫 to:目标路由 from:正要离开的路由
+// router.beforeEach((to, from, next) => {
+//   //模拟获取的动态路由数据
+//   const menuList = [
+//     {
+//       path: '/home',
+//       name: 'home',
+//       component: '/home/index',
+//       meta: { title: '主页', keepAlive: false },
+//       redirect: '/home/children2',
+//       children: [
+//         {
+//           path: 'children1',
+//           name: 'children1',
+//           component: '/home/children1/index',
+//           meta: { title: 'children1', keepAlive: false },
+//         },
+//         {
+//           path: 'children2',
+//           name: 'children2',
+//           component: '/home/children2/index',
+//           meta: { title: 'children2', keepAlive: false },
+//         },
+//       ],
+//     },
+//   ];
+//   let menuRouter = filterAsyncRouter(menuList);
+//   menuRouter.forEach((route) => {
+//     router.addRoute(route);
+//   });
+//   next();
+// });

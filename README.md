@@ -33,6 +33,7 @@ vue3 + vite + typescript + pinia 脚手架
 ### record
 
 git config --global http.sslVerify "false"
+ipconfig/flushdns
 
 windicss 安装
 

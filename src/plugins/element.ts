@@ -4,6 +4,8 @@
  *
  */
 import {
+  ElHeader,
+  ElContainer,
   ElTag,
   ElAffix,
   ElSkeleton,
@@ -146,6 +148,8 @@ import type { App } from 'vue';
 export default function setupComponents(app: App<Element>) {
   // 注册组件
   app
+    .use(ElHeader)
+    .use(ElContainer)
     .use(ElTag)
     .use(ElAffix)
     .use(ElSkeleton)

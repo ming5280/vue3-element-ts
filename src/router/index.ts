@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-// import Layout from '/@/layout/index.vue';
-// import Index from '/@/view/index.vue';
+import ZhzgLayout from '/@/layouts/zhzg/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -62,6 +61,42 @@ const routes: Array<RouteRecordRaw> = [
       requireAuth: true,
     },
     component: () => import('/@/view/404.vue'),
+  },
+
+  // 智慧政工
+  {
+    path: '/zhzg',
+    // redirect: '/',
+    name: 'Zhzg',
+    component: ZhzgLayout,
+    children: [
+      {
+        path: '/zhzg/zhdj',
+        name: 'Zhdj',
+        // component: Index,
+        // meta: { title: '首页', keepAlive: false, requireAuth: true },
+        children: [
+          {
+            path: '/zhzg/zhdj/dzzb',
+            name: 'Dzzb',
+            component: () => import('/@/view/zhzg/zhdj/dzzb/index.vue'),
+            meta: { title: '党组织部', keepAlive: false, requireAuth: true },
+          },
+          {
+            path: '/zhzg/zhdj/dygl',
+            name: 'Dygl',
+            component: () => import('/@/view/zhzg/zhdj/dygl/index.vue'),
+            meta: { title: '党员管理', keepAlive: false, requireAuth: true },
+          },
+          {
+            path: '/zhzg/zhdj/djjd',
+            name: 'Djjd',
+            component: () => import('/@/view/zhzg/zhdj/djjd/index.vue'),
+            meta: { title: '党建进度', keepAlive: false, requireAuth: true },
+          },
+        ],
+      },
+    ],
   },
 
   // 动态路由

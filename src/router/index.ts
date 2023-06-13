@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import ZhzgLayout from '/@/layouts/zhzg/index.vue';
+import FirstNav from '/@/layouts/zhzg/FirstNav.vue';
+import SecondNav from '/@/layouts/zhzg/SecondNav.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: false,
     },
-    component: () => import('/@/view/login/Login.vue'),
+    component: () => import(/* webpackChunkName: "loginPage" */ '/@/view/login/Login.vue'),
   },
   {
     path: '/',
@@ -20,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('/@/view/index.vue'),
+    component: () => import(/* webpackChunkName: "indexPage" */ '/@/view/index.vue'),
   },
   {
     path: '/vueUse',
@@ -30,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('/@/view/vueUse.vue'),
+    component: () => import(/* webpackChunkName: "vueUse" */ '/@/view/vueUse.vue'),
   },
   {
     path: '/request',
@@ -40,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('/@/view/form.vue'),
+    component: () => import(/* webpackChunkName: "requestPage" */ '/@/view/form.vue'),
   },
   {
     path: '/form',
@@ -50,7 +51,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('/@/view/demo/form.vue'),
+    component: () => import(/* webpackChunkName: "form" */ '/@/view/demo/form.vue'),
   },
   {
     path: '/404',
@@ -60,7 +61,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import('/@/view/404.vue'),
+    component: () => import(/* webpackChunkName: "notFund" */ '/@/view/404.vue'),
   },
 
   // 智慧政工
@@ -68,30 +69,34 @@ const routes: Array<RouteRecordRaw> = [
     path: '/zhzg',
     // redirect: '/',
     name: 'Zhzg',
-    component: ZhzgLayout,
+    component: FirstNav,
     children: [
       {
-        path: '/zhzg/zhdj',
+        path: 'zhdj',
         name: 'Zhdj',
-        // component: Index,
+        // redirect: '/zhdj',
+        component: SecondNav,
         // meta: { title: '首页', keepAlive: false, requireAuth: true },
         children: [
           {
-            path: '/zhzg/zhdj/dzzb',
+            path: 'dzzb',
             name: 'Dzzb',
-            component: () => import('/@/view/zhzg/zhdj/dzzb/index.vue'),
+            component: () =>
+              import(/* webpackChunkName: "dzzb" */ '/@/view/zhzg/zhdj/dzzb/index.vue'),
             meta: { title: '党组织部', keepAlive: false, requireAuth: true },
           },
           {
-            path: '/zhzg/zhdj/dygl',
+            path: 'dygl',
             name: 'Dygl',
-            component: () => import('/@/view/zhzg/zhdj/dygl/index.vue'),
+            component: () =>
+              import(/* webpackChunkName: "dygl" */ '/@/view/zhzg/zhdj/dygl/index.vue'),
             meta: { title: '党员管理', keepAlive: false, requireAuth: true },
           },
           {
-            path: '/zhzg/zhdj/djjd',
+            path: 'djjd',
             name: 'Djjd',
-            component: () => import('/@/view/zhzg/zhdj/djjd/index.vue'),
+            component: () =>
+              import(/* webpackChunkName: "djjd" */ '/@/view/zhzg/zhdj/djjd/index.vue'),
             meta: { title: '党建进度', keepAlive: false, requireAuth: true },
           },
         ],
@@ -114,6 +119,7 @@ const routes: Array<RouteRecordRaw> = [
   //     },
   //   ],
   // },
+  { path: '/:pathMatch(.*)*', name: 'notFound', redirect: '/404' },
 ];
 
 const router = createRouter({

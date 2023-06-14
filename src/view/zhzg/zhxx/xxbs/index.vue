@@ -1,69 +1,76 @@
 <template>
-  <div v-if="false">
-    <el-form-item label="指挥处">
-      <div class="tab">
-        <ul>
-          <li class="active">全部</li>
-          <li>党建活动</li>
-          <li>两优一先</li>
-          <li>教育训练</li>
-          <li>团圆青年</li>
-          <li>工作述职</li>
-          <li>文体煖警</li>
-        </ul>
+  <div>
+    <div v-if="!isDetail">
+      <el-form-item label="指挥处">
+        <div class="tab">
+          <ul>
+            <li class="active">全部</li>
+            <li>党建活动</li>
+            <li>两优一先</li>
+            <li>教育训练</li>
+            <li>团圆青年</li>
+            <li>工作述职</li>
+            <li>文体煖警</li>
+          </ul>
+        </div>
+      </el-form-item>
+      <div class="form">
+        <el-form-item label="发布时间">
+          <el-date-picker
+            v-model="form.date1"
+            type="date"
+            placeholder="开始日期"
+            style="width: 150px"
+            :teleported="false"
+          />
+          <span style="display: inline-block; color: #730101; margin: 0 15px">至</span>
+          <el-date-picker
+            v-model="form.date2"
+            type="date"
+            placeholder="结束日期"
+            style="width: 150px"
+            :teleported="false"
+          />
+        </el-form-item>
+        <el-form-item label="发布部门" style="margin-left: 20px">
+          <el-select
+            v-model="form.region"
+            placeholder="请选择发布部门"
+            :teleported="false"
+            clearable
+          >
+            <el-option label="指挥处" value="1" />
+          </el-select>
+        </el-form-item>
       </div>
-    </el-form-item>
-    <div class="form">
-      <el-form-item label="发布时间">
-        <el-date-picker
-          v-model="form.date1"
-          type="date"
-          placeholder="开始日期"
-          style="width: 150px"
-          :teleported="false"
-        />
-        <span style="display: inline-block; color: #730101; margin: 0 15px">至</span>
-        <el-date-picker
-          v-model="form.date2"
-          type="date"
-          placeholder="结束日期"
-          style="width: 150px"
-          :teleported="false"
-        />
-      </el-form-item>
-      <el-form-item label="发布部门" style="margin-left: 20px">
-        <el-select v-model="form.region" placeholder="请选择发布部门" :teleported="false" clearable>
-          <el-option label="指挥处" value="1" />
-        </el-select>
-      </el-form-item>
+      <div class="z-line"></div>
+      <div class="z-flex-r">
+        <el-button type="primary" style="margin: 15px 0">报送</el-button>
+      </div>
+      <el-table
+        :data="tableData"
+        :header-cell-style="headerCellStyle"
+        :cell-style="cellStyle"
+        border
+        style="width: 100%"
+      >
+        <el-table-column prop="xh" label="序号" align="center" />
+        <el-table-column prop="bm" label="部门" align="center" />
+        <el-table-column prop="xxlx" label="信息类型" align="center" />
+        <el-table-column prop="ztdrlx" label="主题党日类型" align="center" />
+        <el-table-column prop="nrbt" label="内容标题" align="center" />
+        <el-table-column prop="fbrq" label="发布日期" align="center" />
+        <el-table-column prop="sprq" label="审批日期" align="center" />
+        <el-table-column prop="action" label="操作" align="center">
+          <template #default="scope">
+            <el-link href="javascript:;" @click.prevent="preview(scope)">预览</el-link>
+          </template>
+        </el-table-column>
+      </el-table>
+      <ZhzgPagination />
     </div>
-    <div class="z-line"></div>
-    <div class="z-flex-r">
-      <el-button type="primary" style="margin: 15px 0">报送</el-button>
-    </div>
-    <el-table
-      :data="tableData"
-      :header-cell-style="headerCellStyle"
-      :cell-style="cellStyle"
-      border
-      style="width: 100%"
-    >
-      <el-table-column prop="xh" label="序号" align="center" />
-      <el-table-column prop="bm" label="部门" align="center" />
-      <el-table-column prop="xxlx" label="信息类型" align="center" />
-      <el-table-column prop="ztdrlx" label="主题党日类型" align="center" />
-      <el-table-column prop="nrbt" label="内容标题" align="center" />
-      <el-table-column prop="fbrq" label="发布日期" align="center" />
-      <el-table-column prop="sprq" label="审批日期" align="center" />
-      <el-table-column prop="action" label="操作" align="center">
-        <template #default="scope">
-          <el-link href="javascript:;" @click.prevent="preview(scope)">预览</el-link>
-        </template>
-      </el-table-column>
-    </el-table>
-    <ZhzgPagination />
+    <ReleaseInfo v-else />
   </div>
-  <ReleaseInfo />
 </template>
 
 <script setup lang="ts">
@@ -145,6 +152,7 @@
     date2: '',
     region: '',
   });
+  const isDetail = ref(false);
   const preview = (scope) => {
     console.log(scope);
   };

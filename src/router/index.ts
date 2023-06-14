@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import FirstNav from '/@/layouts/zhzg/FirstNav.vue';
-import SecondNav from '/@/layouts/zhzg/SecondNav.vue';
+import ZhzgLayout from '/@/layouts/zhzg/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -78,15 +77,15 @@ const routes: Array<RouteRecordRaw> = [
   // 智慧政工
   {
     path: '/zhzg',
-    // redirect: '/',
+    redirect: '/zhzg/zhdj',
     name: 'Zhzg',
-    component: FirstNav,
+    component: ZhzgLayout,
     children: [
       {
         path: 'zhdj',
         name: 'Zhdj',
-        // redirect: '/zhdj',
-        component: SecondNav,
+        redirect: '/zhzg/zhdj/dzzb',
+        // component: { render: (e) => e('router-view') },
         // meta: { title: '首页', keepAlive: false, requireAuth: true },
         children: [
           {
@@ -115,8 +114,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'zhxx',
         name: 'Zhxx',
-        // redirect: '/zhxx',
-        component: SecondNav,
+        redirect: '/zhzg/zhxx/xxbs',
+        // component: { render: (e) => e('router-view') },
         // meta: { title: '首页', keepAlive: false, requireAuth: true },
         children: [
           {

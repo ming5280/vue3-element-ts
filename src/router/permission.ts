@@ -3,7 +3,7 @@
  * @description 全局路由过滤、权限过滤
  */
 
-// import { router } from '.';
+// import router from '.';
 // import { getToken } from '../utils/auth';
 // import { usePermissioStoreWithOut } from '/@/store/modules/permission';
 

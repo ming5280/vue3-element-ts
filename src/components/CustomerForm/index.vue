@@ -12,6 +12,7 @@
     labelWidth?: number | string;
     form: FormItemProps[];
     editable?: boolean;
+    justify?: string;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -20,6 +21,7 @@
     labelPosition: 'right',
     labelWidth: '120px',
     editable: false,
+    justify: 'start',
     form: () => [],
   });
 
@@ -51,7 +53,7 @@
     :label-position="props.labelPosition"
     :label-width="props.labelWidth"
   >
-    <el-row :gutter="24">
+    <el-row :gutter="24" :justify="props.justify">
       <template v-for="item in props.form" :key="item.field">
         <el-col :span="item.span ?? 8">
           <el-form-item :label="item.label" :prop="item.field" :rules="item.rules ?? []">

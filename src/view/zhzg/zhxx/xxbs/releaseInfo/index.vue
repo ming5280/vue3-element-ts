@@ -8,13 +8,14 @@
         <p>发布信息</p>
       </div>
     </div>
-    <div style="margin-left: 80px">
+    <div style="width: 90%; padding: 0 100px">
       <CustomerForm
         ref="formRef"
         :model="model"
         :form="data"
         :labelWidth="'150px'"
-        :labelPosition="'right'"
+        :justify="'space-between'"
+        :labelPosition="'left'"
       >
         <template #thumbnail>
           <el-button :icon="'Upload'">上传文件</el-button>

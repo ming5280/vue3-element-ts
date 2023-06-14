@@ -1,0 +1,174 @@
+// label
+:deep(.el-form-item--default .el-form-item__label) {
+  font-size: 14px;
+  color: #2e2e2e;
+  font-weight: 400;
+}
+
+// input
+:deep(.el-input__wrapper) {
+  height: 36px;
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 0 0 1px #e3cccc inset;
+  border-radius: 4px;
+}
+
+// date picker
+:deep(.el-date-table td.available:hover) {
+  color: #730101;
+}
+:deep(.el-date-table td.today .el-date-table-cell__text) {
+  color: #730101;
+}
+:deep(.el-date-table td.current:not(.disabled) .el-date-table-cell__text) {
+  background-color: #730101;
+  color: #ffffff;
+}
+
+// date range pick
+:deep(.el-range-editor.is-active:hover) {
+  box-shadow: 0 0 0 1px #e3cccc inset;
+}
+:deep(
+    .el-date-table td.start-date .el-date-table-cell__text,
+    .el-date-table td.end-date .el-date-table-cell__text
+  ) {
+  background-color: #730101;
+}
+:deep(.el-date-table td.end-date .el-date-table-cell__text) {
+  background-color: #730101;
+}
+:deep(.el-picker-panel__footer .el-button.is-text) {
+  color: #730101;
+}
+:deep(.el-picker-panel__footer .el-button.is-plain) {
+  border-radius: 4px;
+  color: #730101;
+}
+
+// time
+:deep(.el-time-panel__btn) {
+  color: #909399;
+}
+:deep(.el-time-panel__btn.confirm) {
+  color: #730101;
+}
+:deep(.el-time-spinner__item.is-active:not(.is-disabled)) {
+  color: #730101;
+}
+// input icon
+:deep(.el-icon.el-input__icon) {
+  color: #730101;
+}
+
+// select
+:deep(.el-select .el-input.is-focus .el-input__wrapper) {
+  box-shadow: 0 0 0 1px #e3cccc inset !important;
+}
+:deep(.el-select .el-input__wrapper.is-focus) {
+  box-shadow: 0 0 0 1px #e3cccc inset !important;
+}
+:deep(.el-select-dropdown__item.selected span) {
+  color: #730101;
+}
+:deep(.el-input__inner) {
+  color: #730101;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+// switch
+:deep(.el-switch.is-checked .el-switch__core) {
+  background-color: #730101;
+  border-color: #730101;
+}
+:deep(.el-switch__core) {
+  background: #f2eded;
+  border: #f6f1f1;
+  //   f6efef
+  //   #f2eded
+}
+
+// select icon
+:deep(.el-select .el-input .el-select__caret.el-icon) {
+  color: #730101;
+  font-size: 18px;
+}
+
+// checkbox
+:deep(.el-checkbox__inner) {
+  border-color: #c79999;
+}
+:deep(.el-checkbox__input.is-checked .el-checkbox__inner) {
+  background-color: #730101;
+  border-color: #730101;
+}
+:deep(.el-checkbox) {
+  font-weight: 400;
+}
+:deep(.el-checkbox__input.is-checked + .el-checkbox__label) {
+  color: #730101;
+}
+
+// radio
+:deep(.el-radio__inner) {
+  border-color: #c79999;
+}
+:deep(.el-radio__input.is-checked .el-radio__inner) {
+  background-color: #730101;
+  border-color: #730101;
+}
+:deep(.el-radio__label) {
+  font-weight: 400;
+}
+:deep(.el-radio__input.is-checked + .el-radio__label) {
+  color: #730101;
+}
+
+// textarea
+:deep(.el-textarea__inner) {
+  color: #730101;
+  box-shadow: 0 0 0 1px #e3cccc inset;
+  border-radius: 4px;
+}
+
+// button
+:deep(.el-button--default) {
+  border-radius: 4px;
+  border: 1px solid #730101;
+  color: #730101;
+  background-color: #f6efef;
+  font-weight: 400;
+}
+:deep(.el-button--default:hover) {
+  color: #730101;
+  border-color: #730101;
+  color: #730101;
+  background-color: #f6efef;
+}
+:deep(.el-button--primary) {
+  background-color: #730101;
+  color: #ffffff;
+}
+:deep(.el-button--primary:hover) {
+  background-color: #730101;
+  color: #ffffff;
+}
+
+// link
+:deep(.el-link) {
+  font-size: 14px;
+  color: #2591ff;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+:deep(.el-link:hover::after) {
+  display: none;
+}
+
+// form item
+// :deep(.el-form-item) {
+//   align-items: center;
+// }

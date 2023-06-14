@@ -71,6 +71,7 @@ export const createSelectRender = (formItem: FormItemProps, model: object): any 
       clearable
       placeholder={formItem.placeholder ?? ''}
       style={formItem.style ?? { width: '100%' }}
+      teleported="{false}"
       {...formItem.elProps}
     >
       {options}
@@ -93,6 +94,7 @@ export const createDatePickerRender = (formItem: FormItemProps, model: object): 
       end-placeholder="结束时间"
       placeholder={formItem.placeholder ?? ''}
       style={formItem.style ?? { width: '100%' }}
+      teleported="{false}"
       {...formItem.elProps}
     />
     // 能自定义：日期区域选择分为两个选择框  选择日期和时间(ElTimePicker)分为两个选择框  to do

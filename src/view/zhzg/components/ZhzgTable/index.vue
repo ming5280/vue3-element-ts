@@ -1,5 +1,5 @@
 <template>
-  <div class="zhzg-table">
+  <div>
     <el-table
       :data="tableData"
       :header-cell-style="headerCellStyle"
@@ -52,32 +52,4 @@
     },
   ];
 </script>
-<style lang="scss" scoped>
-  .zhzg-table {
-    :deep(.el-table th.el-table__cell.is-leaf) {
-      border-bottom: 1px solid #dabdbd;
-      border-right: 1px solid #dabdbd;
-      background-color: #faf5f5;
-    }
-    :deep(.el-table td.el-table__cell) {
-      border-bottom: 1px solid #dabdbd;
-      border-right: 1px solid #dabdbd;
-    }
-    // :deep(.el-table__inner-wrapper::before) {
-    //   background-color: transparent;
-    // }
-    :deep(.el-table__inner-wrapper::after) {
-      background-color: transparent;
-    }
-    :deep(.el-table__border-left-patch) {
-      background-color: transparent;
-    }
-    // :deep(.el-table--border::after) {
-    //   background-color: transparent;
-    // }
-    :deep(.el-table) {
-      border-radius: 10px;
-      border: 1px solid #dabdbd;
-    }
-  }
-</style>
+<style lang="scss" scoped></style>

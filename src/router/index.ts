@@ -64,6 +64,17 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "notFund" */ '/@/view/404.vue'),
   },
 
+  {
+    path: '/template',
+    name: 'Template',
+    meta: {
+      title: 'template',
+      keepAlive: true,
+      requireAuth: true,
+    },
+    component: () => import(/* webpackChunkName: "Template" */ '/@/view/zhzg/template.vue'),
+  },
+
   // 智慧政工
   {
     path: '/zhzg',
@@ -98,6 +109,29 @@ const routes: Array<RouteRecordRaw> = [
             component: () =>
               import(/* webpackChunkName: "djjd" */ '/@/view/zhzg/zhdj/djjd/index.vue'),
             meta: { title: '党建进度', keepAlive: false, requireAuth: true },
+          },
+        ],
+      },
+      {
+        path: 'zhxx',
+        name: 'Zhxx',
+        // redirect: '/zhxx',
+        component: SecondNav,
+        // meta: { title: '首页', keepAlive: false, requireAuth: true },
+        children: [
+          {
+            path: 'xxbs',
+            name: 'Xxbs',
+            component: () =>
+              import(/* webpackChunkName: "xxbs" */ '/@/view/zhzg/zhxx/xxbs/index.vue'),
+            meta: { title: '信息报送', keepAlive: false, requireAuth: true },
+          },
+          {
+            path: 'wdxx',
+            name: 'Wdxx',
+            component: () =>
+              import(/* webpackChunkName: "wdxx" */ '/@/view/zhzg/zhxx/wdxx/index.vue'),
+            meta: { title: '我的信息', keepAlive: false, requireAuth: true },
           },
         ],
       },

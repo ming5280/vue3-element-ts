@@ -23,6 +23,7 @@ import {
   ElDialog,
   ElMenu,
   ElMenuItem,
+  ElProgress,
   ElDropdownItem,
   ElDropdownMenu,
   ElIcon,
@@ -167,6 +168,7 @@ export default function setupComponents(app: App<Element>) {
     .use(ElDialog)
     .use(ElMenu)
     .use(ElMenuItem)
+    .use(ElProgress)
     .use(ElDropdownItem)
     .use(ElDropdownMenu)
     .use(ElIcon)

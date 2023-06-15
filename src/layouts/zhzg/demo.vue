@@ -4,14 +4,17 @@
       <div class="header">
         <div class="login"></div>
         <div class="first-nav">
-          <el-tabs v-model="firstNavActive" type="card" @tab-change="firstNavChange">
-            <el-tab-pane
-              v-for="(item, index) in menuList"
-              :key="index"
-              :label="item.name"
-              :name="item.path"
-            />
-          </el-tabs>
+          <el-menu
+            :router="true"
+            :default-active="firstMenuDefault"
+            class="first-menu"
+            mode="horizontal"
+            @select="firstHandleSelect"
+          >
+            <el-menu-item v-for="(item, index) in menuList" :key="index" :index="item.path">{{
+              item.name
+            }}</el-menu-item>
+          </el-menu>
         </div>
         <div class="user">
           <img :src="UserAvatar" alt="" />
@@ -21,15 +24,18 @@
         </div>
       </div>
     </el-header>
-    <div class="second-nav">
-      <el-tabs v-model="secondNavActive" @tab-change="secondNavChange">
-        <el-tab-pane
-          v-for="(item, index) in current.children || []"
-          :key="index"
-          :label="item.name"
-          :name="item.path"
-        />
-      </el-tabs>
+    <div class="second-nav" v-if="secondMenuList.length">
+      <el-menu
+        :router="true"
+        :default-active="secondMenuDefault"
+        class="second-menu"
+        mode="horizontal"
+        @select="secondHandleSelect"
+      >
+        <el-menu-item v-for="(item, index) in secondMenuList" :key="index" :index="item.path">{{
+          item.name
+        }}</el-menu-item>
+      </el-menu>
     </div>
 
     <el-main>
@@ -44,13 +50,11 @@
   </el-container>
 </template>
 
-<script setup lang="ts" name="Zhzg">
-  import type { TabPaneName } from 'element-plus';
+<script setup lang="ts">
   import UserAvatar from '/@/assets/images/zhzg/user-avatar.png';
   import { useRouter } from 'vue-router';
   // useRoute useRouter
 
-  // const router = useRouter();
   const router = useRouter();
 
   // 存放路由meta中keepAlive为true的路由 name
@@ -134,32 +138,21 @@
     }
   };
 
-  const current = ref(findParentMenus(router.currentRoute.value.path, menuList.value));
-  const firstNavActive = ref(current.value.path);
-  const secondNavActive = ref('');
+  const parentNodes = findParentMenus(router.currentRoute.value.path, menuList.value);
 
-  watch(
-    () => router.currentRoute.value.path,
-    (newValue) => {
-      current.value = findParentMenus(newValue, menuList.value);
-      console.log(router.currentRoute.value.fullPath);
+  const firstMenuDefault = ref(parentNodes.path);
+  const secondMenuDefault = ref(router.currentRoute.value.path);
 
-      // 如果切换的是一级路由，就设置默认二级路由
-      // if (menuList.value.some((i) => i.path === current.value.path)) {
-      //   secondNavActive.value = current.value.children[0].path;
-      // }
-    },
-    { immediate: true },
-  );
+  const secondMenuList = ref(parentNodes.children);
 
-  const firstNavChange = (name: TabPaneName) => {
-    const path = name.toString();
-    router.push(path);
+  const firstHandleSelect = (key: string, keyPath: string[]) => {
+    // secondMenuList.value = [];
+    console.log(key, keyPath);
+    const curr: any = menuList.value.find((i) => i.path === key);
+    secondMenuList.value = !!~curr ? curr?.children : [];
+    secondMenuDefault.value = router.currentRoute.value.path;
   };
-  const secondNavChange = (name: TabPaneName) => {
-    const path = name.toString();
-    router.push(path);
-  };
+  const secondHandleSelect = () => {};
 </script>
 
 <style lang="scss" scoped>
@@ -181,47 +174,53 @@
     }
     .first-nav {
       margin-left: 64px;
-      :deep(.el-tabs--card > .el-tabs__header) {
-        border: none;
-      }
-      :deep(.el-tabs--card > .el-tabs__header .el-tabs__nav) {
-        border: none;
-      }
-      :deep(.el-tabs__header) {
-        margin: 0;
-      }
-      :deep(.el-tabs--card > .el-tabs__header .el-tabs__item) {
-        border: none;
-      }
-      :deep(.el-tabs__item) {
-        // width: 80px;
-        height: 40px;
-        border-radius: 4px;
-        font-size: 16px;
-        color: #fcda83;
-        line-height: 40px;
-        font-weight: 400;
-        margin: 0 8px;
-        padding: 0 15px;
-      }
-      :deep(.el-tabs__nav-scroll) {
-        padding-bottom: 5px;
-      }
-      :deep(.el-tabs--card > .el-tabs__header .el-tabs__item.is-active) {
-        background-color: #8f2c1c;
-        font-weight: 600;
-        position: relative;
-        &::after {
-          content: ' ';
-          display: inline-block;
-          width: 32px;
-          height: 4px;
-          background: #fcda83;
-          transform: perspective(2px) rotateX(-5deg);
-          position: absolute;
-          bottom: -4px;
-          left: 50%;
-          margin-left: -16px;
+      .first-menu {
+        background-color: transparent;
+        border-bottom: none;
+        :deep(.el-menu-item) {
+          height: 40px;
+          border-radius: 4px;
+          font-size: 16px;
+          color: #fcda83;
+          line-height: 40px;
+          font-weight: 400;
+          margin: 0 8px;
+          padding: 0 15px;
+          border-bottom: none;
+        }
+        :deep(.el-menu-item.is-active) {
+          background-color: #8f2c1c;
+          font-weight: 600;
+          color: #fcda83 !important;
+          border-bottom: none;
+          position: relative;
+          &::after {
+            content: ' ';
+            display: inline-block;
+            width: 32px;
+            height: 4px;
+            background: #fcda83;
+            transform: perspective(2px) rotateX(-5deg);
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            margin-left: -16px;
+          }
+        }
+        :deep(.el-menu-item:hover) {
+          background-color: #8f2c1c;
+          font-weight: 600;
+        }
+        :deep(.el-menu--horizontal .el-menu-item:not(.is-disabled):focus) {
+          background-color: #8f2c1c;
+          font-weight: 600;
+        }
+        :deep(
+            .el-menu--horizontal .el-menu-item:not(.is-disabled):hover,
+            .el-menu--horizontal .el-menu-item:not(.is-disabled):focus
+          ) {
+          background-color: #8f2c1c;
+          font-weight: 600;
         }
       }
     }
@@ -259,35 +258,29 @@
       }
     }
   }
-  // :deep(.el-main) {
-  //   padding: 0;
-  // }
-
-  .second-nav {
+  .second-menu {
     width: 100%;
     height: 60px;
     background: #fff4eb;
     box-shadow: 0px 2px 4px 0px rgba(169, 40, 40, 0.14);
     padding: 0 30px;
-    :deep(.el-tabs__item) {
+    :deep(.el-menu-item) {
       height: 60px;
       font-size: 16px;
       color: #595959;
       line-height: 60px;
       font-weight: 400;
     }
-    :deep(.el-tabs__item.is-active) {
+    :deep(.el-menu-item.is-active) {
       font-size: 16px;
-      color: #730101;
+      color: #730101 !important;
       font-weight: 600;
+      background-color: transparent !important;
+      border-bottom: 2px solid #730101;
     }
-    :deep(.el-tabs__active-bar) {
-      width: 32px;
-      height: 4px;
-      background: #730101;
-    }
-    :deep(.el-tabs__nav-wrap::after) {
-      display: none;
+    :deep(.el-menu-item:hover) {
+      background-color: transparent !important;
+      color: #730101 !important;
     }
   }
 </style>

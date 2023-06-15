@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import ZhzgLayout from '/@/layouts/zhzg/index.vue';
+import ZhzgLayout from '/@/layouts/zhzg/demo.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {

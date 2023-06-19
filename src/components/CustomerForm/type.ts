@@ -35,7 +35,7 @@ export interface FormItemProps {
   rules?: FormItemRule | FormItemRule[];
   placeholder?: any;
   options?: FormOption[];
-  otherOptions?: any;
+  otherOptions?: LabelValueOptions[];
   isHidden?: boolean;
   span?: Number;
   autosize?: boolean | Autosize;

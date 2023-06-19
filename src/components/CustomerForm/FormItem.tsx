@@ -8,6 +8,8 @@ import {
   createDatePickerRender,
   createRadioRender,
   createCheckboxRender,
+  createFileUploadRender,
+  createImageUploadRender,
   // createCustomerRender,
 } from './FormItemRender';
 
@@ -20,6 +22,8 @@ componentMap.set('select', createSelectRender);
 componentMap.set('date', createDatePickerRender);
 componentMap.set('radio', createRadioRender);
 componentMap.set('checkbox', createCheckboxRender);
+componentMap.set('fileUpload', createFileUploadRender);
+componentMap.set('imageUpload', createImageUploadRender);
 // componentMap.set('customer', createCustomerRender);
 
 const props = {

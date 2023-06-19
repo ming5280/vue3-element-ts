@@ -70,6 +70,7 @@ import {
   ElSelectV2,
   ElDatePicker,
   ElTimePicker,
+  ElUpload,
   // 指令
   ElLoading,
   ElInfiniteScroll,
@@ -77,72 +78,6 @@ import {
 
 // 指令
 const plugins = [ElLoading, ElInfiniteScroll];
-
-// const components = [
-//   ElTag,
-//   ElAffix,
-//   ElSkeleton,
-//   ElBreadcrumb,
-//   ElBreadcrumbItem,
-//   ElScrollbar,
-//   ElSubMenu,
-//   ElButton,
-//   ElCol,
-//   ElRow,
-//   ElSpace,
-//   ElDivider,
-//   ElCard,
-//   ElDropdown,
-//   ElDialog,
-//   ElMenu,
-//   ElMenuItem,
-//   ElDropdownItem,
-//   ElDropdownMenu,
-//   ElIcon,
-//   ElInput,
-//   ElForm,
-//   ElFormItem,
-//   ElPopover,
-//   ElPopper,
-//   ElTooltip,
-//   ElDrawer,
-//   ElPagination,
-//   ElAlert,
-//   ElRadio,
-//   ElRadioButton,
-//   ElRadioGroup,
-//   ElDescriptions,
-//   ElDescriptionsItem,
-//   ElBacktop,
-//   ElSwitch,
-//   ElBadge,
-//   ElTabs,
-//   ElTabPane,
-//   ElAvatar,
-//   ElEmpty,
-//   ElCollapse,
-//   ElCollapseItem,
-//   ElTree,
-//   ElTreeV2,
-//   ElPopconfirm,
-//   ElCheckbox,
-//   ElCheckboxGroup,
-//   ElTable,
-//   ElTableColumn,
-//   ElLink,
-//   ElColorPicker,
-//   ElSelect,
-//   ElOption,
-//   ElTimeline,
-//   ElTimelineItem,
-//   ElResult,
-//   ElSteps,
-//   ElStep,
-//   ElConfigProvider,
-//   ElSelectV2,
-//   ElDatePicker,
-//   ElTimePicker,
-// ];
 
 import type { App } from 'vue';
 
@@ -214,14 +149,81 @@ export default function setupComponents(app: App<Element>) {
     .use(ElConfigProvider)
     .use(ElSelectV2)
     .use(ElDatePicker)
-    .use(ElTimePicker);
-
-  // components.forEach((component: Component) => {
-  //   app.component(component.name, component);
-  // });
+    .use(ElTimePicker)
+    .use(ElUpload);
 
   // 注册指令
   plugins.forEach((plugin) => {
     app.use(plugin);
   });
 }
+
+// const components = [
+//   ElTag,
+//   ElAffix,
+//   ElSkeleton,
+//   ElBreadcrumb,
+//   ElBreadcrumbItem,
+//   ElScrollbar,
+//   ElSubMenu,
+//   ElButton,
+//   ElCol,
+//   ElRow,
+//   ElSpace,
+//   ElDivider,
+//   ElCard,
+//   ElDropdown,
+//   ElDialog,
+//   ElMenu,
+//   ElMenuItem,
+//   ElDropdownItem,
+//   ElDropdownMenu,
+//   ElIcon,
+//   ElInput,
+//   ElForm,
+//   ElFormItem,
+//   ElPopover,
+//   ElPopper,
+//   ElTooltip,
+//   ElDrawer,
+//   ElPagination,
+//   ElAlert,
+//   ElRadio,
+//   ElRadioButton,
+//   ElRadioGroup,
+//   ElDescriptions,
+//   ElDescriptionsItem,
+//   ElBacktop,
+//   ElSwitch,
+//   ElBadge,
+//   ElTabs,
+//   ElTabPane,
+//   ElAvatar,
+//   ElEmpty,
+//   ElCollapse,
+//   ElCollapseItem,
+//   ElTree,
+//   ElTreeV2,
+//   ElPopconfirm,
+//   ElCheckbox,
+//   ElCheckboxGroup,
+//   ElTable,
+//   ElTableColumn,
+//   ElLink,
+//   ElColorPicker,
+//   ElSelect,
+//   ElOption,
+//   ElTimeline,
+//   ElTimelineItem,
+//   ElResult,
+//   ElSteps,
+//   ElStep,
+//   ElConfigProvider,
+//   ElSelectV2,
+//   ElDatePicker,
+//   ElTimePicker,
+// ];
+
+// components.forEach((component: Component) => {
+//   app.component(component.name, component);
+// });

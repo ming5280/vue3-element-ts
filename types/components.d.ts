@@ -6,6 +6,8 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CustomerForm: typeof import('./../src/components/CustomerForm/index.vue')['default']
+    FileUpload: typeof import('./../src/components/FileUpload/index.vue')['default']
+    ImageUpload: typeof import('./../src/components/ImageUpload/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UsePinia: typeof import('./../src/components/UsePinia.vue')['default']

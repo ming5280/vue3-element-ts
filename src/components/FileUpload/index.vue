@@ -14,21 +14,21 @@
       :on-change="handleChange"
     >
       <div class="el-upload__text">
-        <img src="@/assets/images/icon_upload.png" />
+        <el-icon><Upload /></el-icon>
         <span>上传文件</span>
       </div>
     </el-upload>
     <div class="template_list">
       <div class="template" v-for="(item, index) in waitFileList" :key="index">
-        <span>
-          <img src="@/assets/images/icon_link.png" />
+        <span class="link-icon">
+          <el-icon><Connection /></el-icon>
         </span>
         <span class="documentName">{{ item.name }}</span>
-        <span v-if="!props.isDisableUpload">
+        <span class="link-delete" v-if="!props.isDisableUpload">
           <el-icon color="#000000a6" size="16" @click="removeFile(item)"><Close /></el-icon>
         </span>
-        <span v-if="isDownLoad" style="paddingleft: 5px">
-          <img src="@/assets/images/icon_download.png" @click="handleDownLoad(item)" />
+        <span class="link-download" v-if="isDownLoad">
+          <el-icon color="#000000a6" size="16" @click="handleDownLoad(item)"><Download /></el-icon>
         </span>
       </div>
     </div>
@@ -39,10 +39,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
-  import { ElLoading, ElMessage } from 'element-plus';
-  import { request } from '@/api/axios';
-  import { Close } from '@element-plus/icons-vue';
+  /* eslint-disable */
+  // eslint-disable-next-line vue/no-setup-props-destructure
+
+  // ElLoading,
+  import { ElMessage } from 'element-plus';
+  // import type { UploadProps, UploadUserFile } from 'element-plus';
+  import { uploadApi } from '/@/api/upload';
+
   const emits = defineEmits(['fileSuccess', 'fileRemove']);
   interface Props {
     acceptType?: string; // 上传文件类型
@@ -52,36 +56,30 @@
     isDisableUpload?: boolean; // 是否禁用上传
     maxFileSize?: number; // 文件大小
     action?: string;
-    fileList?: any; // 回显的文件
+    fileList?: any[]; // 回显的文件
     isDownLoad?: boolean; // 是否可以下载
   }
   // 接收父组件传递过来的参数
   const props = withDefaults(defineProps<Props>(), {
-    acceptType: '.xls,.doc',
-    acceptTypeDesc: 'doc/xls',
+    acceptType: '.xls,.xlsx,.docx,.doc,.pdf,.txt',
+    acceptTypeDesc: 'doc/xls/pdf/txt',
     isMultiple: true,
     limitNum: 10,
     isDisableUpload: false,
     maxFileSize: 10,
     action: '/activity/resource/uploadFile',
-    fileList: [],
-    isDownLoad: false,
+    fileList: () => [],
+    isDownLoad: true,
   });
   let waitFileList = ref<any[]>([]);
 
-  waitFileList.value = props.fileList;
-  waitFileList.value?.forEach((item: any) => {
-    item.name = item.original;
-  });
+  waitFileList.value = [...props.fileList];
 
   watch(
     () => props.fileList,
     () => {
       console.log('props.fileList====>', props.fileList);
-      waitFileList.value = props.fileList;
-      waitFileList.value?.forEach((item: any) => {
-        item.name = item.original;
-      });
+      waitFileList.value = [...props.fileList];
     },
   );
 
@@ -110,35 +108,39 @@
       });
       return false;
     } else {
-      let formData = new FormData();
-      formData.append('file', rawFile);
-      formData.append('fileType', '2');
-      const loadingInstance = ElLoading.service({
-        text: '正在上传',
-        background: 'rgba(0,0,0,.2)',
-      });
+      // let formData = new FormData();
+      // formData.append('file', rawFile);
+      // formData.append('fileType', '2');
+      // debugger;
+      // const loadingInstance = ElLoading.service({
+      //   text: '正在上传',
+      //   background: 'rgba(0,0,0,.2)',
+      // });
       // 上传到服务器上面
-      const requestURL: string = props.action;
-      request('post', requestURL, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-        .then(async (res: any) => {
-          if (res.code == 0) {
-            loadingInstance.close();
-            let obj = {
-              ...res.data,
-              name: res.data.original,
-            };
-            emits('fileSuccess', obj);
-          } else {
-            loadingInstance.close();
-            ElMessage.warning(`文件上传失败`);
-          }
-        })
-        .catch(() => {
-          loadingInstance.close();
-          // ElMessage.warning(`文件上传失败`);
-        });
+      // const requestURL: string = props.action;
+      // request('post', requestURL, formData, {
+      //   headers: { 'Content-Type': 'multipart/form-data' },
+      // })
+      //   .then(async (res: any) => {
+      //     if (res.code == 0) {
+      //       loadingInstance.close();
+      //       let obj = {
+      //         ...res.data,
+      //         name: res.data.original,
+      //       };
+      //       emits('fileSuccess', obj);
+      //     } else {
+      //       loadingInstance.close();
+      //       ElMessage.warning(`文件上传失败`);
+      //     }
+      //   })
+      //   .catch(() => {
+      //     loadingInstance.close();
+      //     // ElMessage.warning(`文件上传失败`);
+      //   });
+      try {
+        await uploadApi({ name: 'file', file: rawFile });
+      } catch (error) {}
     }
     return true;
   };
@@ -231,6 +233,31 @@
 
   .template_list {
     padding-bottom: 4px;
+    .link-icon {
+      display: inline-block;
+      padding: 4px 5px 0 0;
+    }
+    .link-delete {
+      display: inline-block;
+      padding: 5px 0 0 0;
+      cursor: pointer;
+      &:hover {
+        :deep(.el-icon) {
+          color: red !important;
+        }
+      }
+    }
+    .link-download {
+      display: inline-block;
+      padding: 5px 0 0 0;
+      margin-left: 10px;
+      cursor: pointer;
+      &:hover {
+        :deep(.el-icon) {
+          color: #0960bd !important;
+        }
+      }
+    }
   }
   .template {
     display: flex;

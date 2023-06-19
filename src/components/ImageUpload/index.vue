@@ -1,53 +1,69 @@
 <template>
-  <div class="avatar-uploader">
+  <div class="image-uploader">
     <el-upload
-      class="avatar-uploader"
-      :show-file-list="false"
+      ref="excelUploadRef"
+      class="image-uploader"
+      v-model:file-list="waitImageList"
+      list-type="picture-card"
       :disabled="disabledType"
       :auto-upload="false"
       accept=".png,.jepg,.jpg"
-      ref="excelUploadRef"
+      :limit="limitNum"
       :on-change="handleChange"
+      :on-preview="handlePictureCardPreview"
+      :on-remove="handleRemove"
     >
-      <img
-        v-if="imagesURL || props.imageUrl"
-        :src="props.imageUrl ? props.imageUrl : imagesURL"
-        class="avatar"
-      />
-      <div class="upImgBox" v-else>
-        <el-icon class="avatar-uploader-icon"><Plus /></el-icon>
+      <!-- <div v-if="waitImageList.length">
+        <img v-for="(item, index) in waitImageList" :key="index" :src="item.url" class="image" />
+      </div> -->
+      <div class="upImgBox">
+        <el-icon class="image-uploader-icon"><Plus /></el-icon>
         <div>{{ imgUpText }}</div>
       </div>
     </el-upload>
     <div class="upImgText">
       {{ imgText }}
     </div>
+    <el-dialog v-model="dialogVisible">
+      <!-- <p>11</p> -->
+      <img :src="dialogImageUrl" alt="Preview Image" />
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
-  import { Plus } from '@element-plus/icons-vue';
-  import { ElMessage, ElLoading } from 'element-plus';
-  import { request } from '@/api/axios';
+  // ElLoading
+  import { ElMessage } from 'element-plus';
+  import type { UploadFile, UploadFiles } from 'element-plus';
   interface Props {
-    imageUrl?: string; // 回显图片地址
+    imageList?: any[]; // 回显图片地址
     action?: string; //   上传地址
     imgText?: string; //   文字可以不传
     imgUpText?: string; // 上传按钮的文字
     disabledType?: boolean; // 是否禁用上传
+    limitNum?: number; // 允许上传图片的最大数量
   }
   const props = withDefaults(defineProps<Props>(), {
-    imageUrl: '',
+    imageList: () => [],
     action: '/activity/resource/uploadFile',
     imgText: '支持jpg/jpeg/png；文件大小不能超过2M；封面图建议尺寸940px*400px',
-    imgUpText: '上传封面',
+    imgUpText: '上传图片',
     disabledType: false,
+    limitNum: 10,
   });
 
-  const imagesURL = ref<string>(props.imageUrl);
-  const emits = defineEmits(['imgSuccess']);
-  const handleChange = (file: any, fileList: any) => {
+  const waitImageList = ref<any[]>([...props.imageList]);
+  const dialogVisible = ref(false);
+  const dialogImageUrl = ref('');
+  watch(
+    () => props.imageList,
+    () => {
+      waitImageList.value = props.imageList;
+    },
+  );
+
+  // const emits = defineEmits(['imgSuccess']);
+  const handleChange = (file: UploadFile, fileList: UploadFiles) => {
     console.log(file);
     console.log(fileList);
     let rawFile = file.raw;
@@ -65,48 +81,50 @@
       let formData = new FormData();
       formData.append('file', rawFile);
       formData.append('fileType', '1');
-      const loadingInstance = ElLoading.service({
-        text: '正在上传',
-        background: 'rgba(0,0,0,.2)',
-      });
+      // const loadingInstance = ElLoading.service({
+      //   text: '正在上传',
+      //   background: 'rgba(0,0,0,.2)',
+      // });
       // 请求接口上传图片到服务器
-      let requestURL = props.action;
-      request('post', requestURL, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-        .then(async (res: any) => {
-          console.log(res);
-          if (res.code == 0) {
-            loadingInstance.close();
-            let obj = {
-              imgUrl: res.data.ossFile,
-              raw: res.data,
-            };
-            emits('imgSuccess', obj);
-            imagesURL.value = res.data.ossFile;
-          } else {
-            loadingInstance.close();
-            ElMessage.warning(`文件上传失败`);
-          }
-        })
-        .catch(() => {
-          loadingInstance.close();
-          ElMessage.warning(`文件上传失败`);
-        });
+      // let requestURL = props.action;
+      // request('post', requestURL, formData, {
+      //   headers: { 'Content-Type': 'multipart/form-data' },
+      // })
+      //   .then(async (res: any) => {
+      //     console.log(res);
+      //     if (res.code == 0) {
+      //       loadingInstance.close();
+      //       let obj = {
+      //         imgUrl: res.data.ossFile,
+      //         raw: res.data,
+      //       };
+      //       emits('imgSuccess', obj);
+      //       waitImageList.value = res.data.ossFile;
+      //     } else {
+      //       loadingInstance.close();
+      //       ElMessage.warning(`文件上传失败`);
+      //     }
+      //   })
+      //   .catch(() => {
+      //     loadingInstance.close();
+      //     ElMessage.warning(`文件上传失败`);
+      //   });
     }
     return true;
   };
-  watch(
-    () => props.imageUrl,
-    () => {
-      imagesURL.value = props.imageUrl;
-    },
-  );
+
+  const handlePictureCardPreview = (uploadFile: UploadFile) => {
+    dialogImageUrl.value = uploadFile.url!;
+    dialogVisible.value = true;
+  };
+  const handleRemove = (uploadFile: UploadFile, uploadFiles: UploadFiles): void => {
+    console.log(uploadFile, uploadFiles);
+  };
 </script>
 
 <style lang="scss" scoped>
-  :deep().avatar-uploader {
-    .avatar {
+  :deep().image-uploader {
+    .image {
       width: 104px;
       height: 104px;
       display: block;
@@ -125,7 +143,15 @@
       border-color: #14b194;
     }
   }
-  .el-icon.avatar-uploader-icon {
+  :deep().el-upload--picture-card {
+    width: 104px;
+    height: 104px;
+  }
+  :deep().el-upload-list--picture-card .el-upload-list__item {
+    width: 104px;
+    height: 104px;
+  }
+  .el-icon.image-uploader-icon {
     font-size: 16px;
     color: rgba(0, 0, 0, 0.45);
     text-align: center;

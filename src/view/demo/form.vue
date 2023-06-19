@@ -86,9 +86,21 @@
       span: 24,
     },
     {
+      type: 'fileUpload',
+      label: 'File Upload',
+      field: 'fileList',
+      span: 24,
+    },
+    {
+      type: 'imageUpload',
+      label: 'Image Upload',
+      field: 'imageList',
+      span: 24,
+    },
+    {
       type: 'customer',
       slotName: 'test',
-      label: '插槽',
+      label: 'slot',
       field: 'test',
       span: 24,
     },
@@ -101,6 +113,18 @@
     resource: '',
     type: [],
     desc: '',
+    fileList: [
+      {
+        name: 'element-plus-logo.svg',
+        url: 'https://element-plus.org/images/element-plus-logo.svg',
+      },
+    ],
+    imageList: [
+      {
+        name: 'food.jpeg',
+        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+      },
+    ],
     test: '1111',
   });
 

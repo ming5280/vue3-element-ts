@@ -10,6 +10,8 @@ import {
   ElCheckbox,
   ElCheckboxGroup,
 } from 'element-plus';
+import FileUpload from '/@/components/FileUpload/index.vue';
+import ImageUpload from '/@/components/ImageUpload/index.vue';
 import type { FormItemProps } from './type';
 
 /**
@@ -147,6 +149,22 @@ export const createCheckboxRender = (formItem: FormItemProps, model: object): an
       {options}
     </ElCheckboxGroup>
   );
+};
+
+/**
+ * @description: 文件上传渲染
+ */
+export const createFileUploadRender = (formItem: FormItemProps, model: object): any => {
+  return <FileUpload fileList={model[formItem.field]}></FileUpload>;
+};
+
+/**
+ * @description: 图片上传渲染
+ */
+export const createImageUploadRender = (formItem: FormItemProps, model: object): any => {
+  console.log(formItem, model);
+
+  return <ImageUpload imageList={model[formItem.field]}></ImageUpload>;
 };
 
 /**

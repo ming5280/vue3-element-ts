@@ -32,8 +32,12 @@ vue3 + vite + typescript + pinia 脚手架
 
 ### record
 
-git config --global http.sslVerify "false"
-ipconfig/flushdns
+1.设置 hosts 文件地址 ip
+2.git config --global http.sslVerify "false"
+3.ipconfig/flushdns 刷新 dns
+
+git config --global --unset http.proxy
+git config --global --unset https.proxy
 
 windicss 安装
 

@@ -35,6 +35,7 @@ vue3 + vite + typescript + pinia 脚手架
 1.设置 hosts 文件地址 ip
 2.git config --global http.sslVerify "false"
 3.ipconfig/flushdns 刷新 dns
+4.lookupd -flushcache或type dscacheutil -flushcache
 
 git config --global --unset http.proxy
 git config --global --unset https.proxy

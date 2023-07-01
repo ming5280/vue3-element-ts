@@ -135,7 +135,7 @@ export class VAxios {
 
     // 不进行任何处理，直接返回.需要直接获取code，data，message这些信息时开启
     if (!isTransformResponse) {
-      res.data;
+      return res.data;
     }
 
     // 没有data报错

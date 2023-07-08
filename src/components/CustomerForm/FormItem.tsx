@@ -43,7 +43,6 @@ export default defineComponent({
   name: 'FormItem',
   props,
   setup(props) {
-    // console.log(props.formItem, props.model);
     return () =>
       props.editable
         ? componentMap.get('default')(props.formItem, props.model)

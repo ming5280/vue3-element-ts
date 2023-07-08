@@ -49,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import(/* webpackChunkName: "form" */ '/@/view/demo/form.vue'),
+    component: () => import(/* webpackChunkName: "form" */ '/@/view/demo/formv2.vue'),
   },
   {
     path: '/404',
@@ -62,16 +62,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "notFund" */ '/@/view/404.vue'),
   },
 
-  {
-    path: '/template',
-    name: 'Template',
-    meta: {
-      title: 'template',
-      keepAlive: true,
-      requireAuth: true,
-    },
-    component: () => import(/* webpackChunkName: "Template" */ '/@/view/zhzg/template.vue'),
-  },
+  // {
+  //   path: '/template',
+  //   name: 'Template',
+  //   meta: {
+  //     title: 'template',
+  //     keepAlive: true,
+  //     requireAuth: true,
+  //   },
+  //   component: () => import(/* webpackChunkName: "Template" */ '/@/view/zhzg/template.vue'),
+  // },
 
   { path: '/:pathMatch(.*)*', name: 'notFound', redirect: '/404' },
 ];

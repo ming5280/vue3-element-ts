@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import ZhzgLayout from '/@/layouts/zhzg/demo.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -74,84 +73,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "Template" */ '/@/view/zhzg/template.vue'),
   },
 
-  // 智慧政工
-  {
-    path: '/zhzg',
-    redirect: '/zhzg/zhdj',
-    name: 'Zhzg',
-    component: ZhzgLayout,
-    children: [
-      {
-        path: 'zhdj',
-        name: 'Zhdj',
-        redirect: '/zhzg/zhdj/dzzb',
-        // component: { render: (e) => e('router-view') },
-        // meta: { title: '首页', keepAlive: false, requireAuth: true },
-        children: [
-          {
-            path: 'dzzb',
-            name: 'Dzzb',
-            component: () =>
-              import(/* webpackChunkName: "dzzb" */ '/@/view/zhzg/zhdj/dzzb/index.vue'),
-            meta: { title: '党组织部', keepAlive: false, requireAuth: true },
-          },
-          {
-            path: 'dygl',
-            name: 'Dygl',
-            component: () =>
-              import(/* webpackChunkName: "dygl" */ '/@/view/zhzg/zhdj/dygl/index.vue'),
-            meta: { title: '党员管理', keepAlive: false, requireAuth: true },
-          },
-          {
-            path: 'djjd',
-            name: 'Djjd',
-            component: () =>
-              import(/* webpackChunkName: "djjd" */ '/@/view/zhzg/zhdj/djjd/index.vue'),
-            meta: { title: '党建进度', keepAlive: false, requireAuth: true },
-          },
-        ],
-      },
-      {
-        path: 'zhxx',
-        name: 'Zhxx',
-        redirect: '/zhzg/zhxx/xxbs',
-        // component: { render: (e) => e('router-view') },
-        // meta: { title: '首页', keepAlive: false, requireAuth: true },
-        children: [
-          {
-            path: 'xxbs',
-            name: 'Xxbs',
-            component: () =>
-              import(/* webpackChunkName: "xxbs" */ '/@/view/zhzg/zhxx/xxbs/index.vue'),
-            meta: { title: '信息报送', keepAlive: false, requireAuth: true },
-          },
-          {
-            path: 'wdxx',
-            name: 'Wdxx',
-            component: () =>
-              import(/* webpackChunkName: "wdxx" */ '/@/view/zhzg/zhxx/wdxx/index.vue'),
-            meta: { title: '我的信息', keepAlive: false, requireAuth: true },
-          },
-        ],
-      },
-    ],
-  },
-
-  // 动态路由
-  // {
-  //   // path: '/',
-  //   name: 'dynamicRouter',
-  //   component: Layout,
-  //   redirect: '/dashboard',
-  //   children: [
-  //     {
-  //       path: 'dashboard',
-  //       component: Index,
-  //       name: 'Dashboard',
-  //       meta: { title: '首页', keepAlive: true, requireAuth: true },
-  //     },
-  //   ],
-  // },
   { path: '/:pathMatch(.*)*', name: 'notFound', redirect: '/404' },
 ];
 

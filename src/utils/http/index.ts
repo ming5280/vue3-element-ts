@@ -10,13 +10,13 @@ const defConfig = {
   // 响应时间
   timeout: 10 * 1000,
   // 基础接口地址
-  // baseURL: globSetting.apiUrl,
+  baseURL: import.meta.env.VITE_BASE_API_URL,
   // 数据格式
   headers: { 'Content-Type': ContentTypeEnum.JSON },
   // 配置项，下面的选项都可以在独立的接口请求中覆盖
   requestOptions: {
     // 请求url
-    apiUrl: import.meta.env.VITE_BASE_API_URL,
+    apiUrl: '',
     // 请求加入的前缀路径
     urlPrefix: import.meta.env.VITE_API_PREFIX,
     // psot 请求将参数拼接到url

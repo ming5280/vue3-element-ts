@@ -44,7 +44,7 @@ export class VAxios {
   /**
    * @description: 请求之前处理config
    */
-  beforeRequestHook(config, options) {
+  beforeRequestHook(config: AxiosRequestConfig, options: RequestOptions): AxiosRequestConfig {
     const {
       apiUrl,
       joinPrefix,
@@ -121,7 +121,7 @@ export class VAxios {
   /**
    * @description: 处理响应数据。如果数据不是预期格式，可直接抛出错误
    */
-  transformResponseHook(res: AxiosResponse<Result>, options: RequestOptions) {
+  transformResponseHook(res: AxiosResponse<Result>, options: RequestOptions): any {
     const { isTransformResponse, isReturnNativeResponse, isLoading } = options;
     // 全局loading
     if (isLoading) {
@@ -212,7 +212,7 @@ export class VAxios {
   /**
    * @description: 请求失败处理
    */
-  requestCatchHook(e: Error, conf: CreateAxiosOptions, opt: RequestOptions) {
+  requestCatchHook(e: Error, conf: CreateAxiosOptions, opt: RequestOptions): Promise<any> {
     // 关闭全局loading
     if (opt.isLoading) {
       loading.hide();
@@ -222,14 +222,16 @@ export class VAxios {
     console.log('conf:', conf);
     console.log('opt:', opt);
 
-    return Promise<any>;
+    return Promise.reject(e);
   }
 
   /**
    * @description: 请求拦截器处理
    */
-  requestInterceptors(config, options) {
-    const token = 'abcd';
+  requestInterceptors(config: AxiosRequestConfig, options: CreateAxiosOptions): AxiosRequestConfig {
+    // const userStore = useUserStoreHook();
+    // const token = userStore.getToken;
+    const token = '';
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
       // jwt token
       (config as Recordable).headers.Authorization = options.authenticationScheme
@@ -243,7 +245,7 @@ export class VAxios {
   /**
    * @description: 响应拦截器处理
    */
-  responseInterceptors(res: AxiosResponse<any>) {
+  responseInterceptors(res: AxiosResponse<any>): AxiosResponse<any> {
     // 响应拦截 进行一些处理
     return res;
   }
@@ -251,14 +253,14 @@ export class VAxios {
   /**
    * @description: 请求拦截错误处理
    */
-  requestInterceptorsCatch(error: any) {
+  requestInterceptorsCatch(error: any): Promise<any> {
     return Promise.reject(error);
   }
 
   /**
    * @description: 响应拦截错误处理 axiosInstance: AxiosInstance
    */
-  responseInterceptorsCatch(error: any) {
+  responseInterceptorsCatch(error: any): Promise<any> {
     // 错误日志收集
     // const errorLogStore = useErrorLogStoreWithOut();
     // errorLogStore.addAjaxErrorInfo(error);

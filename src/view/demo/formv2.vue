@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import CustomerForm from '/@/components/CustomForm';
-  const data = reactive([
+  const data = ref([
     {
       formItemType: 'input',
       prop: 'name',
@@ -78,7 +78,7 @@
       label: 'slot',
     },
   ]);
-  const model = reactive({
+  const model = ref({
     name: '',
     region: '',
     count: 0,
@@ -92,7 +92,7 @@
   const submitForm = () => {
     const valid = formRef.value.validate();
     if (valid) {
-      console.log(toRaw(model));
+      console.log(model);
     } else {
       return false;
     }
@@ -136,7 +136,7 @@
 
 <template>
   <div class="wrap">
-    <CustomerForm ref="formRef" :model="model" :formData="data">
+    <CustomerForm ref="formRef" v-model="model" :formData="data">
       <template #test="scope">
         {{ scope.text }}
       </template>

@@ -1,4 +1,4 @@
-import { ref, toRefs, defineComponent, renderSlot, type PropType, type SetupContext } from 'vue';
+import { ref, defineComponent, renderSlot, type PropType, type SetupContext } from 'vue';
 import { ElForm, ElFormItem, ElRow, ElCol } from 'element-plus';
 import type { RowProps, FormItemProps, LabelPosition } from './types';
 import formItemRender from './CusomFormItem';
@@ -9,9 +9,9 @@ const props = {
     type: String,
     default: 'customFormRef',
   },
-  model: {
+  modelValue: {
     type: Object as PropType<Record<string, unknown>>,
-    default: {},
+    default: () => ({}),
   },
   rowProps: {
     type: Object as PropType<RowProps>,
@@ -47,30 +47,38 @@ const elFormItemPropsKeys = [
   // 'validateStatus',
 ];
 
-// col 渲染
-const colRender = (props: any, slots: any) => {
-  const { model, formData } = props;
-
-  return formData.map((i: FormItemProps) => {
-    const formItemProps = { labelWidth: props.labelWidth, ...pick(i, elFormItemPropsKeys) };
-    return (
-      <ElCol {...i.colProps}>
-        <ElFormItem {...formItemProps}>
-          {i.formItemType === 'slot'
-            ? renderSlot(slots, i.prop, { text: model[i.prop], props: { ...i } })
-            : formItemRender(i, model)}
-        </ElFormItem>
-      </ElCol>
-    );
-  });
-};
-
 export default defineComponent({
   name: 'CustomForm',
   props,
-  setup(props, { slots, expose }: SetupContext) {
+  emits: ['update:modelValue'],
+  setup(props, { slots, emit, expose }: SetupContext) {
     const customFormRef = ref();
-    const { model } = toRefs(props);
+    console.log('>>>>', props.modelValue);
+    // 1. watch做法
+    // 这里使用reactive 需要...toRefs(props.modelValue) 否则会导致 emit update 失效
+    const mValue = ref({ ...props.modelValue });
+
+    watch(
+      mValue,
+      (newVal) => {
+        console.log('emit', newVal);
+        emit('update:modelValue', newVal);
+      },
+      {
+        immediate: true,
+        deep: true,
+      },
+    );
+
+    // // computed 做法
+    // const mValue = computed({
+    //   get: () => reactive({ ...toRefs(props.modelValue) }),
+    //   set: (value) => {
+    //     console.log(11111);
+
+    //     return emit('update:modelValue', value);
+    //   },
+    // });
 
     // 表单校验
     const validate = async () => {
@@ -87,10 +95,26 @@ export default defineComponent({
     // 接口
     expose({ validate, resetFields });
 
+    // col 渲染
+    const colRender = () => {
+      return props.formData.map((i: FormItemProps) => {
+        const formItemProps = { labelWidth: props.labelWidth, ...pick(i, elFormItemPropsKeys) };
+        return (
+          <ElCol {...i.colProps}>
+            <ElFormItem {...formItemProps}>
+              {i.formItemType === 'slot'
+                ? renderSlot(slots, i.prop, { text: mValue.value[i.prop], props: { ...i } })
+                : formItemRender(i, mValue.value)}
+            </ElFormItem>
+          </ElCol>
+        );
+      });
+    };
+
     return () => (
-      <ElForm ref={customFormRef} model={model} labelPosition={props.labelPosition}>
+      <ElForm ref={customFormRef} model={mValue} labelPosition={props.labelPosition}>
         <ElRow {...props.rowProps}>
-          {colRender(props, slots)}
+          {colRender()}
           <ElCol>
             <ElFormItem labelWidth={props.labelWidth}>{renderSlot(slots, 'action')}</ElFormItem>
           </ElCol>

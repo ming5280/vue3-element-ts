@@ -39,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import(/* webpackChunkName: "requestPage" */ '/@/view/form.vue'),
+    component: () => import(/* webpackChunkName: "requestPage" */ '/@/view/request.vue'),
   },
   {
     path: '/form',
@@ -49,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: true,
     },
-    component: () => import(/* webpackChunkName: "form" */ '/@/view/demo/formv2.vue'),
+    component: () => import(/* webpackChunkName: "form" */ '/@/view/demo/form.vue'),
   },
   {
     path: '/404',

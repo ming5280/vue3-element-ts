@@ -9,6 +9,7 @@ import {
 enum Api {
   Login = '/mock/api/login',
   GetUserList = '/mock/api/getUserList',
+  GetEmoji = '/api/emoji/all',
 }
 
 /**
@@ -25,3 +26,8 @@ export const login = (data: LoginParams) =>
  */
 export const getUserList = (params: UserListParams) =>
   http.get<UserListGetResultModel>({ url: Api.GetUserList, params }, { isLoading: true });
+
+/**
+ * @description: Emoji
+ */
+export const getEmoji = () => http.get<any>({ url: Api.GetEmoji });

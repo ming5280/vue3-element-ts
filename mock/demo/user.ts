@@ -2,14 +2,14 @@ import { MockMethod } from 'vite-plugin-mock';
 // 单纯的使⽤⾃⼰的返回数据话，可以不⽤引⼊mockjs
 // http://mockjs.com/examples.html
 import Mock, { Random } from 'mockjs';
-import { resultError, resultSuccess, requestParams } from '../_util';
+import { resultError, resultSuccess } from '../_util';
 
 export default [
   {
     url: '/mock/api/login',
     timeout: 500,
     method: 'post',
-    response: (request: requestParams) => {
+    response: (request) => {
       const { username, password } = request.body;
       if (username !== 'admin' || password !== '123456') {
         return resultError('请输入用户名和密码！');
@@ -30,7 +30,7 @@ export default [
     url: '/mock/api/getUserList',
     timeout: 3000,
     method: 'get',
-    response: (request: requestParams) => {
+    response: (request) => {
       const { id } = request.query;
       if (!id) {
         return resultError('id不存在！');

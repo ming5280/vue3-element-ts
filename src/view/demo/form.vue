@@ -1,14 +1,11 @@
 <script setup lang="ts">
-  import CustomerForm from '/@/components/CustomerForm/index.vue';
-  import type { FormItemProps } from '/@/components/CustomerForm/type';
-  const data = reactive<FormItemProps[]>([
+  import CustomerForm from '/@/components/CustomForm';
+  const data = ref([
     {
-      type: 'input',
-      inputType: 'text',
+      formItemType: 'input',
+      prop: 'name',
       label: 'Activity name',
-      field: 'name',
-      placeholder: '请输入姓名',
-      //   disabled: true,
+      placeholder: 'Activity name',
       rules: [
         {
           required: true,
@@ -17,12 +14,11 @@
         },
         { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
       ],
-      span: 24,
     },
     {
-      type: 'select',
+      formItemType: 'select',
+      prop: 'region',
       label: 'Activity zone',
-      field: 'region',
       placeholder: 'Activity zone',
       options: [
         {
@@ -34,40 +30,33 @@
           value: 'beijing',
         },
       ],
-      span: 24,
     },
     {
-      type: 'inputNumber',
+      formItemType: 'inputNumber',
+      prop: 'count',
       label: 'Activity count',
-      field: 'count',
       placeholder: 'Activity count',
-      span: 24,
-      elProps: {
-        controlsPosition: 'right',
-      },
     },
     {
-      type: 'date',
+      formItemType: 'date',
+      prop: 'date',
       label: 'Activity date',
-      field: 'date',
-      dateType: 'datetime',
+      type: 'datetime',
       placeholder: 'Activity date',
-      span: 24,
     },
     {
-      type: 'radio',
+      formItemType: 'radio',
+      prop: 'resource',
       label: 'Resources',
-      field: 'resource',
       options: [
         { label: 'Sponsorship', value: '1' },
         { label: 'Venue', value: '2' },
       ],
-      span: 24,
     },
     {
-      type: 'checkbox',
+      formItemType: 'checkbox',
+      prop: 'type',
       label: 'Activity type',
-      field: 'type',
       options: [
         { label: 'Online activities', value: '1', disabled: true },
         { label: 'Promotion activities', value: '2' },
@@ -75,83 +64,103 @@
         { label: 'Promotion activities', value: '4' },
         { label: 'Simple brand exposure', value: '5' },
       ],
-      span: 24,
     },
     {
-      type: 'input',
-      inputType: 'textarea',
+      formItemType: 'input',
+      prop: 'desc',
+      type: 'textarea',
       label: 'Activity form',
-      field: 'desc',
       placeholder: 'Activity form',
-      span: 24,
     },
     {
-      type: 'fileUpload',
-      label: 'File Upload',
-      field: 'fileList',
-      span: 24,
-    },
-    {
-      type: 'imageUpload',
-      label: 'Image Upload',
-      field: 'imageList',
-      span: 24,
-    },
-    {
-      type: 'customer',
-      slotName: 'test',
+      formItemType: 'slot',
+      prop: 'test',
       label: 'slot',
-      field: 'test',
-      span: 24,
     },
   ]);
-  const model = reactive({
-    name: 'Hello',
+  const model = ref({
+    name: '',
     region: '',
-    count: 25,
-    date: '2023-06-11 00:00:00',
+    count: 0,
+    date: '',
     resource: '',
     type: [],
     desc: '',
-    fileList: [
-      {
-        name: 'element-plus-logo.svg',
-        url: 'https://element-plus.org/images/element-plus-logo.svg',
-      },
-    ],
-    imageList: [
-      {
-        name: 'food.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
-      },
-    ],
     test: '1111',
   });
-
   const formRef = ref();
-
   const submitForm = () => {
-    if (formRef.value.validate()) {
-      console.log(toRaw(model));
+    const valid = formRef.value.validate();
+    if (valid) {
+      console.log(model);
+    } else {
+      return false;
     }
   };
 
   const resetForm = () => {
     formRef.value.resetFields();
   };
+
+  const tableData = ref([
+    {
+      date: '2016-05-01',
+      name: 'Tom',
+      state: 'California',
+      city: 'Los Angeles',
+      address: 'No. 189, Grove St, Los Angeles',
+      zip: 'CA 90036',
+    },
+    {
+      date: '2016-05-02',
+      name: 'Tom',
+      state: 'California',
+      city: 'Los Angeles',
+      address: 'No. 189, Grove St, Los Angeles',
+      zip: 'CA 90036',
+    },
+    {
+      date: '2016-05-03',
+      name: 'Tom',
+      state: 'California',
+      city: 'Los Angeles',
+      address: 'No. 189, Grove St, Los Angeles',
+      zip: 'CA 90036',
+    },
+  ]);
+
+  const deleteRow = (index: number) => {
+    tableData.value.splice(index, 1);
+  };
 </script>
 
 <template>
   <div class="wrap">
-    <CustomerForm ref="formRef" :model="model" :form="data">
-      <template #test="{ text }">
-        <span>{{ text }}</span>
+    <CustomerForm ref="formRef" v-model="model" :formData="data">
+      <template #test="scope">
+        {{ scope.text }}
       </template>
       <template #action>
         <el-button type="primary" @click="submitForm()">Create</el-button>
         <el-button @click="resetForm()">Reset</el-button>
       </template>
     </CustomerForm>
+
+    <el-table :data="tableData" style="width: 100%" max-height="250">
+      <el-table-column fixed prop="date" label="Date" width="150" />
+      <el-table-column prop="name" label="Name" width="120" />
+      <el-table-column prop="state" label="State" width="120" />
+      <el-table-column prop="city" label="City" width="120" />
+      <el-table-column prop="address" label="Address" width="600" />
+      <el-table-column prop="zip" label="Zip" width="120" />
+      <el-table-column fixed="right" label="Operations" width="120">
+        <template #default="scope">
+          <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.$index)">
+            Remove
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 

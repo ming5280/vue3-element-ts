@@ -5,7 +5,7 @@ export function resultSuccess<T = Recordable>(data: T, { message = 'ok' } = {}) 
   return {
     code: ResultEnum.SUCCESS,
     data,
-    message,
+    msg: message,
     type: 'success',
   };
 }
@@ -17,7 +17,7 @@ export function resultError(
   return {
     code,
     data,
-    message,
+    msg: message,
     type: 'error',
   };
 }

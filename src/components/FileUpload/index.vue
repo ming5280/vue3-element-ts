@@ -85,6 +85,8 @@
 
   // 文件变化Handle 这里监听上传文件的变化是一个一个接收到变化的，所以文件也是一个一个上传到服务器上面的
   const handleChange = async (file: any, fileList: any[]) => {
+    console.log(file, fileList);
+
     // 防止多次执行change
     const rawFile = file.raw;
     const list = props.acceptTypeDesc.split('/');

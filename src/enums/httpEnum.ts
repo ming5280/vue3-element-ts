@@ -3,7 +3,7 @@
  */
 export enum ResultFieldEnum {
   CODE = 'code',
-  MESSAGE = 'message',
+  MESSAGE = 'msg',
   RESULT = 'data',
 }
 

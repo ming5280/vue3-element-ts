@@ -147,7 +147,7 @@ export class VAxios {
     // 校验enum设置字段名，与接口返回的字段名是否对应
     const { CODE, MESSAGE, RESULT } = ResultFieldEnum;
     if (!Reflect.has(data, CODE) || !Reflect.has(data, MESSAGE) || !Reflect.has(data, RESULT)) {
-      ElMessageBox.alert('请检查httpEnum设置返回结果字段名是否正确！', sys.api.successTip, {
+      ElMessageBox.alert('请检查httpEnum设置返回结果字段名是否正确！', sys.api.errorTip, {
         confirmButtonText: '关闭',
         type: 'error',
         showClose: false,

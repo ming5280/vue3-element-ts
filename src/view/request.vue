@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts" name="RequestPage">
-  import { getUserList, login } from '/@/api/demo/user';
+  import { getEmoji, getUserList, login } from '/@/api/demo/user';
 
   const requestUserLsit = async () => {
     let result = await getUserList({
@@ -26,9 +26,15 @@
     console.log('user>>>', result);
   };
 
+  const requestEmoji = async () => {
+    const result = await getEmoji();
+    console.log('emoji>>>', result);
+  };
+
   const send = () => {
     requestLogin();
     requestUserLsit();
+    requestEmoji();
   };
 </script>
 

@@ -66,7 +66,7 @@
   const handleChange = (file: UploadFile, fileList: UploadFiles) => {
     console.log(file);
     console.log(fileList);
-    let rawFile = file.raw;
+    const rawFile = file.raw as any;
     if (
       rawFile.type !== 'image/jpeg' &&
       rawFile.type !== 'image/png' &&

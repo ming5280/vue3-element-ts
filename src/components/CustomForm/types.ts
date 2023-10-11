@@ -25,4 +25,7 @@ export interface FormItemProps {
   placeholder?: string;
   rules?: any;
   type?: any;
+  teleported?: boolean;
 }
+
+export type RenderFn = (formItem: FormItemProps, model: object) => JSX.Element;

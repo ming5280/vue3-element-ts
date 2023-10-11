@@ -53,15 +53,13 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { slots, emit, expose }: SetupContext) {
     const customFormRef = ref();
-    console.log('>>>>', props.modelValue);
+
     // 1. watch做法
-    // 这里使用reactive 需要...toRefs(props.modelValue) 否则会导致 emit update 失效
     const mValue = ref({ ...props.modelValue });
 
     watch(
       mValue,
       (newVal) => {
-        console.log('emit', newVal);
         emit('update:modelValue', newVal);
       },
       {
@@ -70,12 +68,10 @@ export default defineComponent({
       },
     );
 
-    // // computed 做法
+    // 2.computed 做法
     // const mValue = computed({
     //   get: () => reactive({ ...toRefs(props.modelValue) }),
     //   set: (value) => {
-    //     console.log(11111);
-
     //     return emit('update:modelValue', value);
     //   },
     // });

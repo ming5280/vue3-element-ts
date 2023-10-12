@@ -1,7 +1,7 @@
 import { ref, renderSlot, type PropType, type SetupContext } from 'vue';
 import { ElTable, ElPagination, ElTableColumn } from 'element-plus';
 import { isFunction, isString } from '/@/utils/is';
-import type { PaginationProps, TableColumnProps } from './types';
+import type { PaginationRaw, TableColumnProps } from './types';
 
 const props = {
   formRef: {
@@ -9,7 +9,7 @@ const props = {
     default: 'customTableRef',
   },
   data: {
-    type: Array,
+    type: Array as PropType<Record<string, unknown>[]>,
     default: [],
   },
   columns: {
@@ -17,7 +17,7 @@ const props = {
     default: [],
   },
   pagination: {
-    type: Object as PropType<PaginationProps>,
+    type: Object as PropType<PaginationRaw>,
     default: {
       total: 0,
       current: 1,
@@ -36,30 +36,6 @@ const props = {
     type: Object as PropType<Record<string, unknown>>,
     default: {},
   },
-  //   currentPage: {
-  //     type: Number,
-  //     default: 1,
-  //   },
-  //   pageSize: {
-  //     type: Number,
-  //     default: 10,
-  //   },
-  //   pageSizes: {
-  //     type: Array as PropType<number[]>,
-  //     default: [5, 10, 30, 50],
-  //   },
-  //   layout: {
-  //     type: String,
-  //     default: 'total, prev, pager, next, sizes, jumper',
-  //   },
-  //   total: {
-  //     type: Number,
-  //     default: 0,
-  //   },
-  //   background: {
-  //     type: Boolean,
-  //     default: true,
-  //   },
 };
 
 const tableColumnRender = (column: TableColumnProps[], vSlots: any) => {

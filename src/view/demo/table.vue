@@ -14,7 +14,7 @@
   });
   const { current, pageSize } = pagination;
 
-  const columns = ref([
+  const columns = ref<any>([
     {
       prop: 'number',
       label: '序号',
@@ -54,7 +54,8 @@
   ]);
 
   const deleteRow = (index: number) => {
-    tableData.value.splice(index, 1);
+    // tableData.value.splice(index, 1);
+    console.log(index);
   };
 </script>
 

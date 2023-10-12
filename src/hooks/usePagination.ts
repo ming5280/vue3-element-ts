@@ -23,8 +23,8 @@ interface usePaginationProp {
   pagination: PaginationRaw;
   fetchData: Fn;
   onLoad: Fn;
-  onCurrentChange: Fn;
-  onSizeChange: Fn;
+  onCurrentChange: (...args: any[]) => any;
+  onSizeChange: (...args: any[]) => any;
 }
 
 export function usePagination(apiFun: Fn, options: OptionRaw): usePaginationProp {

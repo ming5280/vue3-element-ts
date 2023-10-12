@@ -25,7 +25,7 @@ export const login = (data: LoginParams) =>
  * @description: 用户列表
  */
 export const getUserList = (params: UserListParams) =>
-  http.get<UserListGetResultModel>({ url: Api.GetUserList, params }, { isLoading: true });
+  http.get<UserListGetResultModel>({ url: Api.GetUserList, params });
 
 /**
  * @description: Emoji

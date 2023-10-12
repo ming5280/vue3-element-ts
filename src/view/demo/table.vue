@@ -1,28 +1,55 @@
 <script setup lang="ts">
-  const tableData = ref([
+  import CustomTable from '/@/components/CustomTable';
+  import { ElDivider } from 'element-plus';
+  import { usePagination } from '/@/hooks/usePagination';
+  import { getUserList } from '/@/api/demo/user';
+
+  const spacer = h(ElDivider, { direction: 'vertical' });
+
+  const { data, loading, pagination, onSizeChange, onCurrentChange } = usePagination(getUserList, {
+    params: { id: 1 },
+    dataField: 'list',
+    currentField: 'current',
+    pageSizeField: 'pageSize',
+  });
+  const { current, pageSize } = pagination;
+
+  const columns = ref([
     {
-      date: '2016-05-01',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036',
+      prop: 'number',
+      label: '序号',
+      align: 'center',
+      customRender: 'number',
     },
     {
-      date: '2016-05-02',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036',
+      prop: 'name',
+      label: '姓名',
+      align: 'center',
+      formatter: (row: any, column: any) => row[column.property] ?? '-',
     },
     {
-      date: '2016-05-03',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036',
+      prop: 'age',
+      label: '年龄',
+      align: 'center',
+      formatter: (row: any, column: any) => row[column.property] ?? '-',
+    },
+    {
+      prop: 'gender',
+      label: '性别',
+      align: 'center',
+      formatter: (row: any, column: any) => row[column.property] ?? '-',
+    },
+    {
+      prop: 'address',
+      label: '地址',
+      align: 'center',
+      customRender: 'address',
+    },
+    {
+      prop: 'action',
+      label: '操作',
+      align: 'center',
+      customRender: 'action',
     },
   ]);
 
@@ -33,21 +60,32 @@
 
 <template>
   <div class="wrap">
-    <el-table :data="tableData" style="width: 100%" max-height="250" border>
-      <el-table-column fixed prop="date" label="Date" width="150" />
-      <el-table-column prop="name" label="Name" width="120" />
-      <el-table-column prop="state" label="State" width="120" />
-      <el-table-column prop="city" label="City" width="120" />
-      <el-table-column prop="address" label="Address" width="600" />
-      <el-table-column prop="zip" label="Zip" width="120" />
-      <el-table-column fixed="right" label="Operations" width="120">
-        <template #default="scope">
-          <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.$index)">
-            Remove
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <CustomTable
+      :data="data"
+      :columns="columns"
+      :pagination="pagination"
+      :loading="loading"
+      :tableNativeProps="{ border: true }"
+      :pageNativeProps="{
+        pageSzies: [5, 10, 30, 50],
+        layout: 'total, prev, pager, next, sizes, jumper',
+        background: true,
+      }"
+      @on-size-change="onSizeChange"
+      @on-current-change="onCurrentChange"
+    >
+      <template #number="{ scope }">
+        {{ (current - 1) * pageSize + scope.$index + 1 }}
+      </template>
+      <template #address="{ row }">
+        <span>{{ row.address }}</span>
+      </template>
+      <template #action="{ scope }">
+        <el-space :size="5" :spacer="spacer">
+          <el-link icon="Delete" @click.prevent="deleteRow(scope.$index)">删除</el-link>
+        </el-space>
+      </template>
+    </CustomTable>
   </div>
 </template>
 

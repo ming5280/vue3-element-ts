@@ -71,6 +71,7 @@ import {
   ElDatePicker,
   ElTimePicker,
   ElUpload,
+  ElLink,
   // 指令
   ElLoading,
   ElInfiniteScroll,
@@ -150,7 +151,8 @@ export default function setupComponents(app: App<Element>) {
     .use(ElSelectV2)
     .use(ElDatePicker)
     .use(ElTimePicker)
-    .use(ElUpload);
+    .use(ElUpload)
+    .use(ElLink);
 
   // 注册指令
   plugins.forEach((plugin) => {

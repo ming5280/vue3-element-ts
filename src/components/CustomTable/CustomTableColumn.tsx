@@ -3,7 +3,7 @@ import { ElTableColumn } from 'element-plus';
 import { isFunction, isString } from '/@/utils/is';
 import { TableColumnProps } from './types';
 
-const tableColumnRender = (column: TableColumnProps[], vSlots: any) => {
+export const tableColumnRender = (column: TableColumnProps[], vSlots: any) => {
   return column.map((i) => {
     if (i.customRender) {
       let slots: any;
@@ -13,7 +13,7 @@ const tableColumnRender = (column: TableColumnProps[], vSlots: any) => {
 
       if (isString(i.customRender)) {
         slots = {
-          default: (scope) =>
+          default: (scope: any) =>
             renderSlot(vSlots, i.customRender as string, { row: scope.row, scope }),
         };
       }

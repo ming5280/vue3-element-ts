@@ -5,9 +5,6 @@ export interface PaginationProps {
   total: number;
   current: number;
   pageSize: number;
-  //   pageSizes: number[];
-  //   layout: string;
-  //   background: boolean;
 }
 
 export interface PaginationRaw {
@@ -16,6 +13,6 @@ export interface PaginationRaw {
   total: Ref<number>;
 }
 
-export interface TableColumnProps extends TableColumnCtx<any> {
+export interface TableColumnProps extends Partial<TableColumnCtx<any>> {
   customRender?: Fn | string;
 }

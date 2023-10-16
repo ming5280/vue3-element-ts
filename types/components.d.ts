@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CustomSpace: typeof import('./../src/components/CustomSpace/index.vue')['default']
     FileUpload: typeof import('./../src/components/FileUpload/index.vue')['default']
     ImageUpload: typeof import('./../src/components/ImageUpload/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

@@ -14,6 +14,7 @@
         },
         { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
       ],
+      minlength: 20,
     },
     {
       formItemType: 'select',

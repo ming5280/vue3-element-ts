@@ -1,6 +1,6 @@
-import { ref, renderSlot, type PropType, type SetupContext } from 'vue';
-import { ElTable, ElPagination, ElTableColumn } from 'element-plus';
-import { isFunction, isString } from '/@/utils/is';
+import { ref, type PropType, type SetupContext } from 'vue';
+import { ElTable, ElPagination } from 'element-plus';
+import { tableColumnRender } from './CustomTableColumn';
 import type { PaginationRaw, TableColumnProps } from './types';
 
 const props = {
@@ -36,28 +36,6 @@ const props = {
     type: Object as PropType<Record<string, unknown>>,
     default: {},
   },
-};
-
-const tableColumnRender = (column: TableColumnProps[], vSlots: any) => {
-  return column.map((i) => {
-    if (i.customRender) {
-      let slots: any;
-      if (isFunction(i.customRender)) {
-        slots = { default: i.customRender };
-      }
-
-      if (isString(i.customRender)) {
-        slots = {
-          default: (scope: any) =>
-            renderSlot(vSlots, i.customRender as string, { row: scope.row, scope }),
-        };
-      }
-
-      return <ElTableColumn {...i} v-slots={slots} />;
-    }
-
-    return <ElTableColumn {...i} />;
-  });
 };
 
 export default defineComponent({

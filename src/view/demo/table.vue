@@ -1,10 +1,8 @@
 <script setup lang="ts">
   import CustomTable from '/@/components/CustomTable';
-  import { ElDivider } from 'element-plus';
+  import CustomSpace from '/@/components/CustomSpace/index.vue';
   import { usePagination } from '/@/hooks/usePagination';
   import { getUserList } from '/@/api/demo/user';
-
-  const spacer = h(ElDivider, { direction: 'vertical' });
 
   const { data, loading, pagination, onSizeChange, onCurrentChange } = usePagination(getUserList, {
     params: { id: 1 },
@@ -14,7 +12,7 @@
   });
   const { current, pageSize } = pagination;
 
-  const columns = ref<any>([
+  const columns = ref([
     {
       prop: 'number',
       label: '序号',
@@ -82,9 +80,10 @@
         <span>{{ row.address }}</span>
       </template>
       <template #action="{ scope }">
-        <el-space :size="5" :spacer="spacer">
+        <CustomSpace>
+          <el-link icon="Edit">编辑</el-link>
           <el-link icon="Delete" @click.prevent="deleteRow(scope.$index)">删除</el-link>
-        </el-space>
+        </CustomSpace>
       </template>
     </CustomTable>
   </div>
@@ -92,8 +91,8 @@
 
 <style scoped>
   .wrap {
-    margin: 30px auto;
-    width: 600px;
+    /* margin: 30px auto; */
+    width: 1000px;
     height: auto;
   }
 </style>

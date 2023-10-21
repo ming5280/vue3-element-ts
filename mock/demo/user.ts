@@ -72,8 +72,10 @@ export default [
       const end = current * pageSize;
       const list = userData.list.slice(start, end);
       return resultSuccess({
-        list,
-        total: userData.list.length,
+        temp: {
+          list,
+          total: userData.list.length,
+        },
       });
     },
   },

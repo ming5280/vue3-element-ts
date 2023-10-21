@@ -53,20 +53,24 @@ export function usePagination(apiFun: Fn, options: OptionRaw): usePaginationProp
         p[currentField] = current.value;
         p[pageSizeField] = pageSize.value;
         const res = await apiFun({ ...params, ...p });
-        total.value = res?.total ?? 0;
+
         if (dataField === 'none') {
           data.value = res;
         } else {
           const f = dataField.split(':');
+
           if (f.length > 1) {
+            // 仅支持两层
             if (res.hasOwnProperty(f[0]) && res[f[0]].hasOwnProperty(f[1])) {
-              data.value = res[f[0][f[1]]];
+              total.value = res[f[0]]?.total ?? 0;
+              data.value = res[f[0]][f[1]];
             } else {
               data.value = [];
               throw `response 中不存在 ${dataField} 属性！`;
             }
           } else {
             if (res.hasOwnProperty(dataField)) {
+              total.value = res?.total ?? 0;
               data.value = res[dataField as string];
             } else {
               data.value = [];

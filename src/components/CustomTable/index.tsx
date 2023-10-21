@@ -1,4 +1,4 @@
-import { ref, type PropType, type SetupContext } from 'vue';
+import { ref, type PropType } from 'vue';
 import { ElTable, ElPagination } from 'element-plus';
 import { tableColumnRender } from './CustomTableColumn';
 import type { PaginationRaw, TableColumnProps } from './types';
@@ -42,7 +42,8 @@ export default defineComponent({
   name: 'CustomTable',
   props,
   emits: ['update:pagination', 'update:loading', 'onSizeChange', 'onCurrentChange'],
-  setup(props, { slots, emit }: SetupContext) {
+  setup(props, context) {
+    const { emit } = context;
     const mPagination = ref({ ...props.pagination });
 
     const loading = computed({
@@ -66,7 +67,7 @@ export default defineComponent({
     return () => (
       <>
         <ElTable {...props.tableNativeProps} data={props.data} v-loading={loading.value}>
-          {tableColumnRender(props.columns, slots)}
+          {tableColumnRender(props.columns, context)}
         </ElTable>
         <div style={{ marginTop: '15px', display: 'flex', justifyContent: 'flex-end' }}>
           <ElPagination

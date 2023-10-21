@@ -6,7 +6,7 @@
 
   const { data, loading, pagination, onSizeChange, onCurrentChange } = usePagination(getUserList, {
     params: { id: 1 },
-    dataField: 'list',
+    dataField: 'temp:list',
     currentField: 'current',
     pageSizeField: 'pageSize',
   });
@@ -91,7 +91,7 @@
 
 <style scoped>
   .wrap {
-    /* margin: 30px auto; */
+    margin: 30px auto;
     width: 1000px;
     height: auto;
   }

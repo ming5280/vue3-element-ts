@@ -54,9 +54,9 @@ export default defineComponent({
   setup(props, { slots, emit, expose }: SetupContext) {
     const customFormRef = ref();
 
-    // 1. watch做法
     const mValue = ref({ ...props.modelValue });
 
+    // 1. watch做法
     watch(
       mValue,
       (newVal) => {

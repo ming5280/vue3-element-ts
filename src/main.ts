@@ -10,9 +10,6 @@ import '/@/styles/index.scss';
 import '/@/styles/var/element-theme.scss';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
-import { setupProdMockServer } from '../mock/_mockProdServer';
-setupProdMockServer();
-
 // 创建vue实例
 const app = createApp(App);
 

@@ -2,10 +2,10 @@
  * Mock 插件
  * https://github.com/anncwb/vite-plugin-mock
  */
-import path from 'path';
+// import path from 'path';
 import { viteMockServe } from 'vite-plugin-mock';
 
-const resolve = (dir: string) => path.resolve(process.cwd(), dir);
+// const resolve = (dir: string) => path.resolve(process.cwd(), dir);
 
 export function configMockPlugin(isBuild: boolean) {
   return viteMockServe({
@@ -24,6 +24,5 @@ export function configMockPlugin(isBuild: boolean) {
          import { setupProdMockServer } from '../mock/_mockProdServer';
          setupProdMockServer();
        `,
-    injectFile: resolve('src/main.ts'),
   });
 }

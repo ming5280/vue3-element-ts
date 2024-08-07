@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts" name="RequestPage">
-  import { getEmoji, getUserList, login } from '/@/api/demo/user';
+  import { getMusicsBySinger, getUserList, login } from '/@/api/demo/user';
 
   const requestUserLsit = async () => {
     let result = await getUserList({
@@ -26,15 +26,15 @@
     console.log('user>>>', result);
   };
 
-  const requestEmoji = async () => {
-    const result = await getEmoji();
-    console.log('emoji>>>', result);
+  const requestMusics = async () => {
+    const result = await getMusicsBySinger({ msg: '许嵩', n: '' });
+    console.log('music>>>', result);
   };
 
   const send = () => {
     requestLogin();
     requestUserLsit();
-    requestEmoji();
+    requestMusics();
   };
 </script>
 

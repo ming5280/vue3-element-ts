@@ -2,13 +2,16 @@
  * Mock 插件
  * https://github.com/anncwb/vite-plugin-mock
  */
+import path from 'path';
 import { viteMockServe } from 'vite-plugin-mock';
+
+const resolve = (dir: string) => path.resolve(process.cwd(), dir);
 
 export function configMockPlugin(isBuild: boolean) {
   return viteMockServe({
     ignore: /^\_/,
     mockPath: 'mock',
-    localEnabled: !isBuild, // 设置是否启用本地 xxx.ts 文件，不要在生产环境中打开它.设置为 false 将禁用 mock 功能
+    localEnabled: !isBuild, // 设置是否启用本地 xxx.ts 文件，不要在生产环境中打开它.设置为 false 将禁用 mock 功能   && VITE_APP_USE_MOCK === 'true'
     prodEnabled: isBuild, // 设置打包是否启用 mock 功能
     supportTs: true, // 打开后，可以读取 ts ⽂件模块。请注意，打开后将⽆法监视.js ⽂件。
     watchFiles: true, // 监视⽂件更改，并重新加载 mock 数据
@@ -18,8 +21,9 @@ export function configMockPlugin(isBuild: boolean) {
       如果代码直接写在main.ts内，则不管有没有开启,最终的打包都会包含mock.js
     */
     injectCode: `
-         import { setupProdMockServer } from '../mock/mockProdServer';
+         import { setupProdMockServer } from '../mock/_mockProdServer';
          setupProdMockServer();
        `,
+    injectFile: resolve('src/main.ts'),
   });
 }

@@ -9,7 +9,7 @@ import {
 enum Api {
   Login = '/mock/api/login',
   GetUserList = '/mock/api/getUserList',
-  GetEmoji = '/api/emoji/all',
+  GetMusicsBySinger = '/api/music/qianqian_music.php',
 }
 
 /**
@@ -28,6 +28,7 @@ export const getUserList = (params: UserListParams) =>
   http.get<UserListGetResultModel>({ url: Api.GetUserList, params });
 
 /**
- * @description: Emoji
+ * @description: 歌曲
  */
-export const getEmoji = () => http.get<any>({ url: Api.GetEmoji });
+export const getMusicsBySinger = (params: any) =>
+  http.get<any>({ url: Api.GetMusicsBySinger, params }, { isReturnNativeResponse: true });

@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <img alt="Vue logo" src="./../assets/logo.png" />
-    <UsePinia />
     <br />
     <router-link to="/form">点击跳转至表单</router-link>
     <br />
